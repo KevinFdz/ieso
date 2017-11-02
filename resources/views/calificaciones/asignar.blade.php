@@ -15,13 +15,16 @@
       <tbody>
 
         @foreach ($alumnos as $alumno)
+          @if($alumno->horario_id == $horario->id or $alumno->horario_id == null)
           <tr>
-            <td>{{$alumno->nombre}}</td>
+            <td><a href="{{route('calificaciones.crear',array($alumno->id, $horario->id))}}">{{$alumno->nombre}}</td>
             <td>{{$alumno->parcial1}}</td>
             <td>{{$alumno->parcial2}}</td>
             <td>{{$alumno->ordinario}}</td>
             <td>{{$alumno->promedio}}</td>
           </tr>
+          @else
+          @endif
         @endforeach
       </tbody>
     </table>

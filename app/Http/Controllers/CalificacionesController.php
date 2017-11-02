@@ -14,21 +14,51 @@ class CalificacionesController extends Controller
 {
     
     public function asignar($idh){
-        $alumnos = Grupo::GrupoAlumno($idh);
+        
         $horario = Horario::HorarioDet($idh);
+        $idg=$horario->grupo_id;
+        $alumnos = Alumno::AlumnoCalificacion($idg);
+        
+        //dd();
         /*$calificaciones = Calificacion::where('horario_id','=',"$horario")->get();*/
         return view('calificaciones.asignar')->with('alumnos',$alumnos)->with('horario',$horario);   
         }
 
 
+
+
+
+    public function crear($ida,$idh){
+        $cal = Calificacion::where('alumno_id','=',"$ida")->where('horario_id','=',"$idh")->first();
+        if($cal){
+            return view('calificaciones.edit')->with('calificacion',$cal);           
+            }
+        else{
+            $calificacion = new Calificacion;
+            $calificacion->alumno_id = $ida;
+            $calificacion->horario_id = $idh;
+            $calificacion->user_id = \Auth::user()->id;
+            //Mandamos a guaradar la nueva calificacion creada
+            $calificacion->save();    
+            
+            /*$horario = Horario::where('id','=',"$idh")->first();
+            return redirect()->route('calificaciones.asignar',$horario->grupo_id);*/
+
+            return view('calificaciones.edit')->with('calificacion',$calificacion);
+            }  
+        }
+
+
+
+
     public function index()
     {
         //Se manda a llamar todas las calificaciones que existen en la tabla 'calificaciones' mediante el modelo calificacion
-        $horario= Horario::where('grupo_id','=',"1")->first();
+        //$horario= Horario::where('grupo_id','=',"1")->first();
         
-        $calificaciones = Calificacion::where();
+        $calificaciones = Calificacion::all();
         //Se manda a llamar la vista index y le pasamos la lista de usuarios que obtuvimos mediante el modelo calificacion
-        return view('calificaciones.index')->with('calificaciones',$calificaciones)->with('calificaciones',$calificaciones);
+        return view('calificaciones.index')->with('calificaciones',$calificaciones);
     }
 
     /**
@@ -102,11 +132,7 @@ class CalificacionesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //Se declara la validacion
-        $this->validate($request, [
-            'alumno_id' => 'required',
-            'horario_id' => 'required|unique:horarios,horario_id,'."$id"
-            ]);
+      
         //Buscamos la calificacion que vamos a asignar los nuevos valores con el modelo calificacion y find
         $calificacion= Calificacion::find($id);
         //Vaciamos los atributos modificados con fill al registro ya existente
@@ -115,7 +141,7 @@ class CalificacionesController extends Controller
         $calificacion->save();
         //Redireccionamos al index
         flash('Se ha actualizado la calificación '.$calificacion->alumno_id.' con exito!!','success');
-        return redirect()->route('calificaciones.index');
+        return redirect()->route('calificaciones.asignar',$calificacion->horario_id);
     }
 
     /**

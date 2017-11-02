@@ -160,6 +160,7 @@ class Horario extends Model
         ->get([
             'horarios.id',
             'aulas.nombre as aula',
+            'grupos.id as grupo_id',
             'grupos.nombre as grupo',
             'materias.nombre as materia',
             'profesores.nombre as profesor',

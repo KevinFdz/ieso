@@ -53,4 +53,21 @@ class Alumno extends Model
     public function user(){
        return $this->hasOne('App\User');
     }
+
+     public static function AlumnoCalificacion($idg){
+        $Alumno = Alumno::leftjoin('calificaciones','calificaciones.alumno_id','=','alumnos.id')
+        ->orderBy('id','ASC')
+        ->where('alumnos.grupo_id','=',"$idg")
+        ->get([
+            'alumnos.id',
+            'alumnos.nombre as nombre',
+            'calificaciones.parcial1 as parcial1',
+            'calificaciones.parcial2 as parcial2',
+            'calificaciones.ordinario as ordinario',
+            'calificaciones.promedio as promedio',
+            'calificaciones.horario_id as horario_id',
+            ]);
+        return $Alumno;
+    }
 }
+
