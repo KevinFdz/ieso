@@ -69,5 +69,11 @@ class Alumno extends Model
             ]);
         return $Alumno;
     }
+
+    public static function AlumnoU(){
+        $user = \Auth::user()->id;
+        $ida = Alumno::where('user_id','=',$user)->first();
+        return $ida;
+    }
 }
 

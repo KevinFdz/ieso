@@ -64,9 +64,9 @@ $factory->define(Grupo::class, function(Generator $faker){
 $factory->define(Horario::class, function(Generator $faker){
       return [
             'aula_id' => $faker->numberBetween($min = 1, $max = 10),
-            'grupo_id' => $faker->numberBetween($min = 1, $max = 10),
-            'materia_id' => $faker->numberBetween($min = 1, $max = 12),
-            'profesor_id' => $faker->numberBetween($min = 1, $max = 80),
+            'grupo_id' => $faker->numberBetween($min = 1, $max = 12),
+            'materia_id' => $faker->numberBetween($min = 1, $max = 80),
+            'profesor_id' => '1',
             'lunes_i' => $faker->time($format = 'H:i:s', $max = 'now'),
             'lunes_f' => $faker->time($format = 'H:i:s', $max = 'now'),
             'martes_i' => $faker->time($format = 'H:i:s', $max = 'now'),

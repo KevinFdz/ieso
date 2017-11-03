@@ -13,11 +13,16 @@ use App\Http\Requests\CalificacionRequest;
 class CalificacionesController extends Controller
 {
     
+
     public function asignar($idh){
         
         $horario = Horario::HorarioDet($idh);
         $idg=$horario->grupo_id;
+        $this->comprobar($idg,$idh);
+        
+        
         $alumnos = Alumno::AlumnoCalificacion($idg);
+        
         
         //dd();
         /*$calificaciones = Calificacion::where('horario_id','=',"$horario")->get();*/
@@ -26,6 +31,11 @@ class CalificacionesController extends Controller
 
 
 
+        public function ver(){
+        $alumno = Alumno::AlumnoU();
+        $calificaciones = Calificacion::where('alumno_id','=',"$alumno->id")->get();
+        return view('calificaciones.ver')->with('calificaciones',$calificaciones);   
+        }
 
 
     public function crear($ida,$idh){
@@ -34,6 +44,7 @@ class CalificacionesController extends Controller
             return view('calificaciones.edit')->with('calificacion',$cal);           
             }
         else{
+            
             $calificacion = new Calificacion;
             $calificacion->alumno_id = $ida;
             $calificacion->horario_id = $idh;
@@ -157,5 +168,54 @@ class CalificacionesController extends Controller
         //Redireccionamos al index
         flash('Se ha eliminado la calificación con exito!!','danger');
         return redirect()->route('calificaciones.index');
+    }
+
+
+
+
+
+
+
+
+    /*
+    
+    Funciones personalizadas
+
+    */
+    
+
+
+
+    //Funcion inicializar calificaciones del grupo
+    public function inicializar($idg,$idh){
+        $alumno = Alumno::where('id','=',"$idg")->first();
+        
+            $calificacion = new Calificacion;
+            $calificacion->horario_id = $idh;
+            $calificacion->alumno_id = $alumno->id;
+            $calificacion->user_id = \Auth::user()->id;
+            $calificacion->save();
+        
+
+    }
+
+    //comprar si ya fue inicializado las calificaciones del grupo
+
+    public function comprobar($idg,$idh){
+        $alumnos = $this->alumnos($idg);
+        foreach($alumnos as $alumno){
+        $comprobar = Calificacion::where('horario_id','=',"$idh")->where('alumno_id','=',"$alumno->id")->first();
+        if($comprobar){
+        }
+        else{
+            $this->inicializar($alumno->id,$idh);
+        }
+        }
+    }
+
+    //Llama alumno del grupo
+    public function alumnos($idg){
+        $alumno = Alumno::where('grupo_id','=',"$idg")->get();
+        return $alumno;
     }
 }

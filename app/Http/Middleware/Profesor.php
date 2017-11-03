@@ -18,7 +18,7 @@ class Profesor
         if(Auth::guard()->user()->tipo() == 'Profesor'){
             return $next($request);
         }
-        elseif(Auth::guard()->user()->tipo() == 'Grupo'){
+        elseif(Auth::guard()->user()->tipo() == 'Alumno'){
             return $next($request);
         }
         elseif(Auth::guard()->user()->tipo() == 'Coordinador'){

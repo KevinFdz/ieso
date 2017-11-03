@@ -13,10 +13,9 @@
 				<ul class="nav navbar-nav">
 					@if(Auth::guest())
 
-								@else
-									@if (Auth::user()->type =='Coordinador' or Auth::user()->type =='admin')
+								@elseif (Auth::user()->type =='Coordinador' or Auth::user()->type =='Admin')
 						<li><a href="{{ url('/alumnos') }}"><i class="fa fa-graduation-cap"></i> Alumnos</a></li>
-					@endif
+					
 			  <li><a href="{{ url('/profesores') }}"><i class="fa fa-users" aria-hidden="true"></i> Profesores</a></li>
 			  <li class="dropdown">
 			  <a href="#" class="drop-toggle" data-toggle="dropdown"><i class="fa fa-book" aria-hidden="true"></i> Academico <span class="caret"></span>	</a>
@@ -31,7 +30,11 @@
 
 			  <li><a href="{{ url('/tutores') }}"><i class="fa fa-users" aria-hidden="true"></i> Tutores</a></li>
 				<li><a href="{{ url('/coordinadores') }}"><i class="fa fa-hand-paper-o" aria-hidden="true"></i>Coordinadores</a></li>
-
+				@elseif (Auth::user()->type =='Profesor')
+				<li><a href="{{ url('/home') }}"><i class="fa fa-users" aria-hidden="true"></i> Horario</a></li>
+				@elseif (Auth::user()->type =='Alumno')
+				<li><a href="{{ url('/calificacion') }}"><i class="fa fa-users" aria-hidden="true"></i> Calificaciones</a></li>
+@else
 @endif
 			</ul>
 			<ul class="nav navbar-nav navbar-right">

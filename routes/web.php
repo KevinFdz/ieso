@@ -47,12 +47,18 @@ Route::group(['middleware' => 'auth'], function () {
 			'uses' => 'CalificacionesController@crear',
 			'as' => 'calificaciones.crear'
 		]);
+		
 		Route::resource('horarios','HorariosController');
-		Route::get('horarios/{idg}/asignar',[
+		Route::get('horarios/{idh}/asignar',[
 		'uses' => 'HorariosController@asignar',
 		'as' => 'horarios.asignar'
 		]);
 	});
+
+	Route::get('calificacion',[
+			'uses' => 'CalificacionesController@ver',
+			'as' => 'calificacion'
+		]);
 });
 
 

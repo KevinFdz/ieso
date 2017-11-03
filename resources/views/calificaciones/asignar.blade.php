@@ -15,7 +15,7 @@
       <tbody>
 
         @foreach ($alumnos as $alumno)
-          @if($alumno->horario_id == $horario->id or $alumno->horario_id == null)
+          @if($alumno->horario_id == $horario->id)
           <tr>
             <td><a href="{{route('calificaciones.crear',array($alumno->id, $horario->id))}}">{{$alumno->nombre}}</td>
             <td>{{$alumno->parcial1}}</td>
