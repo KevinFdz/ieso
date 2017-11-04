@@ -54,6 +54,11 @@ class Alumno extends Model
        return $this->hasOne('App\User');
     }
 
+    //Se declara la relacion con las especialidades muchos a uno "Un alumno solo puede tener una especialidad"
+     public function kardex(){
+        return $this->hasMany('App\Kardex');
+     }
+
      public static function AlumnoCalificacion($idg){
         $Alumno = Alumno::leftjoin('calificaciones','calificaciones.alumno_id','=','alumnos.id')
         ->orderBy('id','ASC')
@@ -75,5 +80,7 @@ class Alumno extends Model
         $ida = Alumno::where('user_id','=',$user)->first();
         return $ida;
     }
+
+    
 }
 

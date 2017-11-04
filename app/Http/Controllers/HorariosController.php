@@ -19,9 +19,9 @@ class HorariosController extends Controller
 
 
         //Se manda a llamar todas las horarios que existen en la tabla 'horarios' mediante el modelo horario
-        $horarios= Horario::DetalleHorario();
+        $grupos= Grupo::all();
         //Se manda a llamar la vista index y le pasamos la lista de usuarios que obtuvimos mediante el modelo horario
-        return view('horarios.index')->with('horarios',$horarios);
+        return view('horarios.index')->with('grupos',$grupos);
     }
 
     /**
@@ -140,6 +140,6 @@ class HorariosController extends Controller
         Horario::destroy($id);
         //Redireccionamos al index
         flash('Se ha eliminado el Horario con exito!!','danger');
-        return redirect()->route('horarios.index');
+        return redirect()->back();
     }
 }

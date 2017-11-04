@@ -1,43 +1,51 @@
 @extends('layouts.cabecera')
-@section('title','Calificaciones')
+@section('title','Buscar Calificacion')
 @section('content')
-  <a href="{{route('calificaciones.create')}}" class="btn btn-success"><span class="glyphicon glyphicon-plus">Nuevo</span> </a>
-  <div class="table-responsive">
-    <table  class="table table-bordered table-striped table-hover" id="mi_tabla">
-      <thead>
-        <tr>
-          <td>Alumno</td>
-          <td>Materia</td>
-          <td>Parcial 1</td>
-          <td>Parcial 2</td>
-          <td>Ordinario</td>
-          <td>Promedio</td>
-          <td>Firma</td>
-          <td>Editar</td>
-          <td>Eliminar</td>
-        </tr>
-      <thead>
-      <tbody>
+  
 
-        @foreach ($calificaciones as $calificacion)
-          <tr>
-            <td>{{$calificacion->alumno->nombre}}</td>
-            <td>{{$calificacion->horario->materia->nombre}}</td>
-            <td>{{$calificacion->parcial1}}</td>
-            <td>{{$calificacion->parcial2}}</td>
-            <td>{{$calificacion->ordinario}}</td>
-            <td>{{$calificacion->promedio}}</td>
-            <td>{{$calificacion->user->name}}</td>
-            <td>
-              <a href="{{route('calificaciones.destroy',$calificacion->id)}}" class="btn btn-danger"><span class="glyphicon glyphicon-remove-circle"></span> </a>
-            </td>
+@for ($i = 1; $i <= 10; $i++)
+                          <div class="panel panel-primary">
+                            <div class= "panel-heading">
+                            <h1 class="panel-title">Cuatrimestre {{$i}}</h1>
+                          </div>
+                          <div class="panel-body">
+                          <div class="container-">
+                          <div class="row">
+                              
+                          <div class="col-xs-12">
 
-            <td>
-              <a href="{{route('calificaciones.edit',$calificacion)}}" class="btn btn-warning"><span class="glyphicon glyphicon-wrench"></span> </a>
-            </td>
-          </tr>
-        @endforeach
-      </tbody>
-    </table>
-  </div>
+
+                          <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-hover" >
+                                  <thead">
+                                    <tr>
+                                      <td>Nombre</td>
+                                      <td>Licenciatura</td>
+                                      <td>Cuatrimestre</td>
+                                      <td>Turno</td>
+                                      <td>Ver</td>
+                                    </tr>
+                                  <thead>
+                                  <tbody>
+
+                                    @foreach ($grupos as $grupo)
+                                      @if($grupo->cuatrimestre == $i)
+                                      <tr>
+                                        <td>{{$grupo->nombre}}</td>
+                                        <td>{{$grupo->licenciatura->nombre}}</td>
+                                        <td>{{$grupo->cuatrimestre}}</td>
+                                        <td>{{$grupo->turno}}</td>
+                                        <td><a href="{{route('calificaciones.materias',$grupo)}}" class="btn btn-primary"><span class=" glyphicon glyphicon-eye-open"></span> </a></td>
+                                      </tr>
+                                      @endif
+                                    @endforeach
+                                  </tbody>
+                                </table>
+                              </div>
+                               </div>
+                            </div>
+                          </div>   
+                        </div>
+                        </div>
+                        @endfor
 @endsection

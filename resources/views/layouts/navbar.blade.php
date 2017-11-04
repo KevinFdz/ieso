@@ -10,35 +10,47 @@
 		</div>
 
 		<div class="collapse navbar-collapse" id="navbar1">
-				<ul class="nav navbar-nav">
-					@if(Auth::guest())
+			<ul class="nav navbar-nav">
+				@if(Auth::guest())
 
-								@elseif (Auth::user()->type =='Coordinador' or Auth::user()->type =='Admin')
-						<li><a href="{{ url('/alumnos') }}"><i class="fa fa-graduation-cap"></i> Alumnos</a></li>
+				@elseif (Auth::user()->type =='Admin')
+					<li class="dropdown">
+			  			<a href="#" class="drop-toggle" data-toggle="dropdown"><i class="fa fa-book" aria-hidden="true"></i> <span class="caret"></span>	</a>
+
+				  		<ul class="dropdown-menu">
+							<li><a href="{{ url('/alumnos') }}"><i class="fa fa-graduation-cap"></i> Alumnos</a></li>
 					
-			  <li><a href="{{ url('/profesores') }}"><i class="fa fa-users" aria-hidden="true"></i> Profesores</a></li>
-			  <li class="dropdown">
-			  <a href="#" class="drop-toggle" data-toggle="dropdown"><i class="fa fa-book" aria-hidden="true"></i> Academico <span class="caret"></span>	</a>
+			  				<li><a href="{{ url('/profesores') }}"><i class="fa fa-users" aria-hidden="true"></i> Profesores</a></li>
+			  				<li><a href="{{ url('/coordinadores') }}"><i class="fa fa-hand-paper-o" aria-hidden="true"></i>Coordinadores</a></li>
+			  			</ul>
+				  	</li>
+			  		<li class="dropdown">
+			  			<a href="#" class="drop-toggle" data-toggle="dropdown"><i class="fa fa-book" aria-hidden="true"></i> <span class="caret"></span>	</a>
 
-				  <ul class="dropdown-menu">
-				  	<li><a href="{{ url('/materias') }}" ><i class="fa fa-book" aria-hidden="true"></i> Materias</a></li>
-				  	<li><a href="{{ url('/aulas') }}" ><i class="fa fa-book" aria-hidden="true"></i> Aulas</a></li>
-				  	<li><a href="{{ url('/licenciaturas') }}"><i class="fa fa-book" aria-hidden="true"></i> Licenciaturas</a></li>
-				  	<li><a href="{{ url('/grupos') }}"><i class="fa fa-book" aria-hidden="true"></i> Grupos</a></li>
-				  </ul>
-				</li>
-
-			  <li><a href="{{ url('/tutores') }}"><i class="fa fa-users" aria-hidden="true"></i> Tutores</a></li>
-				<li><a href="{{ url('/coordinadores') }}"><i class="fa fa-hand-paper-o" aria-hidden="true"></i>Coordinadores</a></li>
+				  		<ul class="dropdown-menu">
+				  			<li><a href="{{ url('/materias') }}" ><i class="fa fa-book" aria-hidden="true"></i> Materias</a></li>
+				  			<li><a href="{{ url('/aulas') }}" ><i class="fa fa-book" aria-hidden="true"></i> Aulas</a></li>
+				  			<li><a href="{{ url('/licenciaturas') }}"><i class="fa fa-book" aria-hidden="true"></i> Licenciaturas</a></li>
+				  			<li><a href="{{ url('/grupos') }}"><i class="fa fa-book" aria-hidden="true"></i> Grupos</a></li>
+				  		</ul>
+				  	</li>
+				  	<li><a href="{{ url('/horarios') }}"><i class="fa fa-book" aria-hidden="true"></i> Horarios</a></li>
+				  	<li><a href="{{ url('/calificaciones') }}"><i class="fa fa-users" aria-hidden="true"></i> Calificaciones</a></li>
+					<li><a href="{{ url('/kardexs') }}"><i class="fa fa-users" aria-hidden="true"></i> Kardex</a></li>
+				@elseif (Auth::user()->type =='Coordinador')
+					<li><a href="{{ url('/calificaciones') }}"><i class="fa fa-users" aria-hidden="true"></i> Calificaciones</a></li>
+					<li><a href="{{ url('/kardexs') }}"><i class="fa fa-users" aria-hidden="true"></i> Kardex</a></li>
 				@elseif (Auth::user()->type =='Profesor')
-				<li><a href="{{ url('/home') }}"><i class="fa fa-users" aria-hidden="true"></i> Horario</a></li>
+					<li><a href="{{ url('/home') }}"><i class="fa fa-users" aria-hidden="true"></i> Horario</a></li>
 				@elseif (Auth::user()->type =='Alumno')
-				<li><a href="{{ url('/calificacion') }}"><i class="fa fa-users" aria-hidden="true"></i> Calificaciones</a></li>
-@else
-@endif
-			</ul>
-			<ul class="nav navbar-nav navbar-right">
+					<li><a href="{{ url('/calificacion') }}"><i class="fa fa-users" aria-hidden="true"></i> Calificaciones</a></li>
+					<li><a href="{{ url('/kardexx') }}"><i class="fa fa-users" aria-hidden="true"></i> Kardex</a></li>
+				@else
+				@endif
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
                     <li><a href="{{ url('/usuarios') }}">Usuarios</a></li>
+                   
                     <!-- Authentication Links -->
                     @if (Auth::guest())
                         <li><a href="{{ url('/login') }}">Login</a></li>

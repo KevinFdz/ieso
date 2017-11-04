@@ -59,7 +59,33 @@ Route::group(['middleware' => 'auth'], function () {
 			'uses' => 'CalificacionesController@ver',
 			'as' => 'calificacion'
 		]);
+
+	Route::get('calificaciones/{ida}/materias',[
+		'uses' => 'CalificacionesController@verMaterias',
+		'as' => 'calificaciones.materias'
+		]);
+
+	Route::post('calificaciones/calificacion',[
+		'uses' => 'CalificacionesController@verCalificacion',
+		'as' => 'calificaciones.calificacion'
+		]);
+
+	Route::resource('kardexs','KardexController');
+
+	Route::get('kardexx',[
+			'uses' => 'KardexController@asignar',
+			'as' => 'kardexx'
+		]);
+	Route::get('kardex',[
+			'uses' => 'KardexController@ver',
+			'as' => 'kardex'
+		]);
+	Route::post('reticula/kardex',[
+			'uses' => 'KardexController@verKardex',
+			'as' => 'reticula.kardex'
+		]);
 });
+
 
 
 

@@ -27,11 +27,14 @@ class CreateCoordinadoresTable extends Migration
           $table->string('celular');
           $table->integer('user_id')->unsigned()->nullable();
           $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
+          $table->integer('licenciatura_id')->unsigned()->nullable();
+          $table->foreign('licenciatura_id')->references('id')->on('licenciaturas')->onDelete('cascade');
           $table->timestamps();
         });
 
         DB::table('coordinadores')->insert([
-            ['matricula' => '123','nombre'=>'juan','fecha_n'=>'1987-11-01','curp'=>'321654987987456321','estado_c'=>'soltero','colonia'=>'reforma','calle'=>'rosas','cp'=>'68100','telefono_c'=>'5165432','celular'=>'9519876524','user_id'=>'2']
+            ['matricula' => '123','nombre'=>'juan','fecha_n'=>'1987-11-01','curp'=>'321654987987456321','estado_c'=>'soltero','colonia'=>'reforma','calle'=>'rosas','cp'=>'68100','telefono_c'=>'5165432','celular'=>'9519876524','user_id'=>'2','licenciatura_id'=>'1']
         ]);
     }
 

@@ -1,7 +1,7 @@
 @extends('layouts.cabecera')
 @section('title','Horario')
 @section('content')
-  <a href="{{route('horarios.asignar',$grupo)}}" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> </a>
+  <a href="{{route('horarios.asignar',$grupo)}}" class="btn btn-primary"><span class="glyphicon glyphicon-plus">Materia</span> </a>
   <div class="table-responsive">
     <table  class="table table-bordered table-striped table-hover" id="mi_tabla">
       <thead>

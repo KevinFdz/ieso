@@ -34,9 +34,21 @@ class CalificacionesController extends Controller
         public function ver(){
         $alumno = Alumno::AlumnoU();
         $calificaciones = Calificacion::where('alumno_id','=',"$alumno->id")->get();
-        return view('calificaciones.ver')->with('calificaciones',$calificaciones);   
+        return view('calificaciones.ver')->with('calificaciones',$calificaciones)->with('alumno',$alumno);   
         }
 
+        public function verCalificacion(){
+            $m = $_POST['matricula'];
+        $alumno = Alumno::where('matricula','=',"$m")->first();
+        $calificaciones = Calificacion::where('alumno_id','=',"$alumno->id")->get();
+        return view('calificaciones.ver')->with('calificaciones',$calificaciones)->with('alumno',$alumno);   
+        }
+
+        public function verMaterias($idg){
+            $horarios = Horario::GrupoHorario($idg);
+            return view('calificaciones.materias')->with('horarios',$horarios);
+
+        }
 
     public function crear($ida,$idh){
         $cal = Calificacion::where('alumno_id','=',"$ida")->where('horario_id','=',"$idh")->first();
@@ -67,9 +79,9 @@ class CalificacionesController extends Controller
         //Se manda a llamar todas las calificaciones que existen en la tabla 'calificaciones' mediante el modelo calificacion
         //$horario= Horario::where('grupo_id','=',"1")->first();
         
-        $calificaciones = Calificacion::all();
+        $grupos = Grupo::all();
         //Se manda a llamar la vista index y le pasamos la lista de usuarios que obtuvimos mediante el modelo calificacion
-        return view('calificaciones.index')->with('calificaciones',$calificaciones);
+        return view('calificaciones.index')->with('grupos',$grupos);
     }
 
     /**

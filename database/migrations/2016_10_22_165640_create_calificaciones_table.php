@@ -27,6 +27,18 @@ class CreateCalificacionesTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
+
+        Schema::create('kardex', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('alumno_id')->unsigned();
+            $table->integer('materia_id')->unsigned();
+            $table->integer('calificacion')->nullable();
+            $table->foreign('alumno_id')->references('id')->on('alumnos')->onDelete('cascade');
+            $table->foreign('materia_id')->references('id')->on('materias')->onDelete('cascade');
+            $table->timestamps();
+        });
+
+
     }
 
     /**

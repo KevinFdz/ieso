@@ -1,8 +1,8 @@
 @extends('layouts.cabecera')
-@section('title','Calificaciones')
+@section('title','Alumno: '.$alumno->nombre.'     Grupo:'.$alumno->grupo->nombre)
 @section('content')
   <div class="table-responsive">
-    <table  class="table table-bordered table-striped table-hover" id="mi_tabla">
+    <table  class="table table-bordered table-striped table-hover">
       <thead>
         <tr>
           <td>Materia</td>

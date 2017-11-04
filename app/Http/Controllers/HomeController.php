@@ -52,8 +52,8 @@ class HomeController extends Controller
         elseif($user->type == "Coordinador" ){
         $coordinador = DB::table('coordinadores')->where('user_id', '=', $user->id)->first();
         //$grupo= Grupo::find($profesor->grupo_id);
-        $licenciatura = DB::table('licenciaturas')->where('coordinador_id', '=', $coordinador->id)->first();
-        $id = $licenciatura->id;
+        
+        $id = $coordinador->id;
         $grupos = Grupo::GrupoCoordinador($id);
         return view('home')->with('grupos',$grupos);   
         }

@@ -11,6 +11,7 @@
           <td>Cuatrimestre</td>
           <td>Turno</td>
           <td>Editar</td>
+          <td>Ver</td>
           <td>Eliminar</td>
 
         </tr>
@@ -19,14 +20,14 @@
 
         @foreach ($grupos as $grupo)
           <tr>
-            <td><a href="{{route('grupos.show',$grupo)}}">{{$grupo->nombre}}</a></td>
+            <td>{{$grupo->nombre}}</td>
             <td>{{$grupo->licenciatura->nombre}}</td>
             <td>{{$grupo->cuatrimestre}}</td>
             <td>{{$grupo->turno}}</td>
             <td>
               <a href="{{route('grupos.edit',$grupo)}}" class="btn btn-warning"><span class="glyphicon glyphicon-wrench"></span> </a>
             </td>
-
+            <td><a href="{{route('grupos.show',$grupo)}}" class="btn btn-primary"><span class=" glyphicon glyphicon-eye-open"></span> </a></td>
            <td>
               @include('layouts.eliminar',['ruta'=>'/grupos/','modelo'=>$grupo])
             </td>

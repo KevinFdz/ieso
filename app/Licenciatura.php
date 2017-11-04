@@ -9,7 +9,7 @@ class Licenciatura extends Model
     //Se delcara la tabla de la base de datos en la que se va a trabajar
     protected $table='licenciaturas';
     //Se definen los campos con los que se van a trabajar(Agregar,Editar,Eliminar,ostrar)
-    protected $fillable=['nombre','coordinador_id'];
+    protected $fillable=['nombre'];
 
     /*
       Se declara las relaciones que tiene con otras tablas
@@ -26,7 +26,7 @@ class Licenciatura extends Model
         return $this->hasMany('App\Alumno');
      }
      public function coordinador(){
-        return $this->belongsTo('App\Coordinador');
+        return $this->hasOne('App\Coordinador');
      }
     //Se declara la relacion uno a muchos "Una especialidad puede tener muchos grupos"
      public function grupos(){

@@ -62,8 +62,23 @@
 
 
 
-@if($coordinador->id)
+@if($coordinador->licenciatura_id)
+
+<div class='form-group row'>
+      {!!Form::label('grupo','Licenciatura',['class'=>'control-label col-xs-12 col-md-1'])!!}
+      <div class="col-xs-12 col-md-10">
+         {!!Form::select('grupo_id',$licenciaturas,$coordinador->licenciatura_id,['class'=>'form-control select-category'])!!}
+      </div>
+   </div>
+
 @else
+   <div class='form-group row'>
+   {!!Form::label('grupo','Licenciatura',['class'=>'control-label col-xs-12 col-md-1'])!!}
+   <div class="col-xs-12 col-md-10">
+      {!!Form::select('grupo_id',$licenciaturas,null,['class'=>'form-control select-category','placeholder'=>'Eliga licenciatura..'])!!}
+   </div>
+   </div>
+
 <div class="form-group row {{ $errors->has('email') ? ' has-error' : '' }}">
             <label for="email" class="col-xs-12 col-md-1">E-Mail</label>
 
