@@ -22,6 +22,7 @@
       <tbody>
 
         @foreach($horarios as $horario)
+          @if($horario->cuatrimestre == $grupo->cuatrimestre)
           <tr>
             <td>{{$horario->aula}}</td>
             <td>{{$horario->grupo}}</td>
@@ -43,6 +44,7 @@
             </td>
 
           </tr>
+          @endif
         @endforeach
       </tbody>
     </table>

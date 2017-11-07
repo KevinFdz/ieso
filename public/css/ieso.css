@@ -30,3 +30,24 @@ header {
 .panel-primary > .panel-footer + .panel-collapse > .panel-body {
   border-bottom-color: #337ab7;
 }
+
+.table > thead > tr > td.negro,
+.table > tbody > tr > td.negro,
+.table > tfoot > tr > td.negro,
+.table > thead > tr > th.negro,
+.table > tbody > tr > th.negro,
+.table > tfoot > tr > th.negro,
+.table > thead > tr.negro > td,
+.table > tbody > tr.negro > td,
+.table > tfoot > tr.negro > td,
+.table > thead > tr.negro > th,
+.table > tbody > tr.negro > th,
+.table > tfoot > tr.negro > th {
+  color: #fff;
+  background-color: #000;
+}
+.table tbody>tr.naranja{
+    color: #fff;
+  background-color: #FF562F;
+  border-color: #FF562F;
+}

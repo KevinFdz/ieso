@@ -1,0 +1,73 @@
+header {
+	padding: 1em;
+width: 50%;
+	
+    
+}
+.panel-title{
+margin-top: 0;
+  margin-bottom: 0;
+  font-size: 16px;
+  color: inherit;}
+img{
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+div.container { 
+
+  width: 100%;
+  
+}
+
+table
+{ 
+
+  width: 100%;
+  border: 1px solid #333;
+  background-color: #f9f9f9;
+  border-color: #FF562F;
+}
+.panel-body { 
+
+  width: 100%;
+  
+}
+.nomargen{
+	margin-bottom: 0;
+}
+
+.panel-primary {
+  border-color: #FF562F;
+}
+.panel-primary > .panel-heading {
+  color: #fff;
+  background-color: #FF562F;
+  border-color: #FF562F;
+}
+.panel-primary > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: #FCAB37;
+}
+.panel-primary > .panel-heading .badge {
+  color: #337ab7;
+  background-color: #fff;
+}
+.panel-primary > .panel-footer + .panel-collapse > .panel-body {
+  border-bottom-color: #337ab7;
+}
+
+
+  .table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: #f9f9f9;
+}
+.table-hover > tbody > tr:hover {
+  background-color: #f5f5f5;
+}
+
+table>tbody>tr.naranja{
+    color: #fff;
+  background-color: #FF562F;
+  border-color: #FF562F;
+}

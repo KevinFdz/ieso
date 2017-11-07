@@ -22,18 +22,68 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::resource('licenciaturas','LicenciaturasController');
 		Route::resource('coordinadores','CoordinadoresController');
 		Route::resource('materias','MateriasController');
+
     });
 
     Route::group(['middleware' => 'administrativo'], function () {
     	Route::resource('tutores','TutoresController');
 		Route::resource('alumnos','AlumnosController');
+		Route::get('calificaciones/grupos',[
+		'uses' => 'CalificacionesController@GruposCalificaciones',
+		'as' => 'calificaciones.grupos'
+		]);
+		Route::get('grupos/{idg}/alumnos',[
+		'uses' => 'GruposController@GrupoAlumnos',
+		'as' => 'grupos.alumnos'
+		]);
+		Route::post('gruposA',[
+		'uses' => 'GruposController@AsignarAlumnos',
+		'as' => 'gruposA.store'
+		]);
     });
 
     
     Route::group(['middleware' => 'coordinador'], function () {
+    	Route::resource('alumnos','AlumnosController');
     	Route::resource('usuarios','UsuariosController');
 		Route::resource('grupos','GruposController');
+		Route::get('grupo/coordinador',[
+		'uses' => 'GruposController@GruposCoordinador',
+		'as' => 'grupo.coordinador'
+		]);
 		Route::resource('profesores','ProfesoresController');
+		Route::get('calificacion/{ida}/calificacion',[
+		'uses' => 'CalificacionesController@verCalificacionA',
+		'as' => 'calificacion.calificacion'
+		]);
+		Route::post('kardex/kardex',[
+			'uses' => 'KardexController@verKardex',
+			'as' => 'kardex.kardex'
+		]);
+		Route::get('kardex/{ida}/alumno',[
+			'uses' => 'KardexController@verKardexA',
+			'as' => 'kardex.alumno'
+		]);
+		Route::get('kardex/buscar',[
+			'uses' => 'KardexController@buscarKardex',
+			'as' => 'kardex.buscar'
+			]);
+		Route::post('alumno/buscar',[
+				'uses' => 'AlumnosController@buscarAlumno',
+				'as' => 'alumno.buscar'
+			]);
+		Route::get('calificaciones/{ida}/pdf',[
+				'uses' => 'CalificacionesController@pdf',
+				'as' => 'calificaciones.pdf'
+			]);
+		Route::get('kardex/{ida}/pdf',[
+					'uses' => 'KardexController@pdf',
+					'as' => 'kardex.pdf'
+			]);
+		Route::get('calificaiones/{idg}/grupo',[
+					'uses' => 'HorariosController@CalificacionesGrupo',
+					'as' => 'calificaciones.grupo'
+			]);
 	});
 
     
@@ -53,8 +103,17 @@ Route::group(['middleware' => 'auth'], function () {
 		'uses' => 'HorariosController@asignar',
 		'as' => 'horarios.asignar'
 		]);
+
+		Route::get('horario/profesor',[
+			'uses' => 'HorariosController@HorarioProfesor',
+			'as' => 'horarioss.profesor'
+		]);
 	});
 
+	Route::get('horario/alumno',[
+			'uses' => 'HorariosController@HorarioAlumno',
+			'as' => 'horarioss.alumno'
+		]);
 	Route::get('calificacion',[
 			'uses' => 'CalificacionesController@ver',
 			'as' => 'calificacion'
@@ -64,11 +123,17 @@ Route::group(['middleware' => 'auth'], function () {
 		'uses' => 'CalificacionesController@verMaterias',
 		'as' => 'calificaciones.materias'
 		]);
+	Route::get('calificacion/buscar',[
+		'uses' => 'CalificacionesController@buscarCalificacion',
+		'as' => 'calificacion.buscar'
+		]);
 
 	Route::post('calificaciones/calificacion',[
 		'uses' => 'CalificacionesController@verCalificacion',
 		'as' => 'calificaciones.calificacion'
 		]);
+
+	
 
 	Route::resource('kardexs','KardexController');
 
@@ -80,10 +145,8 @@ Route::group(['middleware' => 'auth'], function () {
 			'uses' => 'KardexController@ver',
 			'as' => 'kardex'
 		]);
-	Route::post('reticula/kardex',[
-			'uses' => 'KardexController@verKardex',
-			'as' => 'reticula.kardex'
-		]);
+	
+	
 });
 
 

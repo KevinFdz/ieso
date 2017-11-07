@@ -95,18 +95,20 @@ class Horario extends Model
         return $horarios;
     }
 
-    public static function GrupoHorario($id){
+    public static function GrupoHorario($idg){
         $horarios = Horario::join('aulas','aulas.id','=','horarios.aula_id')
         ->join('grupos','grupos.id','=','horarios.grupo_id')
         ->join('materias','materias.id','=','horarios.materia_id')
         ->join('profesores','profesores.id','=','horarios.profesor_id')
         ->orderBy('id','ASC')
-        ->where('horarios.grupo_id','=',"$id")
+        ->where('horarios.grupo_id','=',"$idg")
         ->get([
             'horarios.id',
             'aulas.nombre as aula',
+            'grupos.cuatrimestre as cuatrimestre_g',
             'grupos.nombre as grupo',
             'materias.nombre as materia',
+            'materias.cuatrimestre as cuatrimestre',
             'profesores.nombre as profesor',
             'horarios.lunes_i',
             'horarios.lunes_f',
@@ -132,8 +134,10 @@ class Horario extends Model
         ->get([
             'horarios.id',
             'aulas.nombre as aula',
+            'grupos.cuatrimestre as cuatrimestre_g',
             'grupos.id as grupo_id',
             'grupos.nombre as grupo',
+            'materias.cuatrimestre as cuatrimestre_m',
             'materias.id as materia_id',
             'materias.nombre as materia',
             'profesores.nombre as profesor',

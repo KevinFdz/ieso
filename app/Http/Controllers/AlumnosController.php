@@ -67,6 +67,8 @@ class AlumnosController extends Controller
     public function show($id)
     {
         //
+        $alumno = Alumno::find($id);
+        return view('alumnos.show')->with('alumno',$alumno);
     }
 
     /**
@@ -118,5 +120,18 @@ class AlumnosController extends Controller
         //Redireccionamos al index
         flash('Se ha eliminado el alumno con exito!!','danger');
         return redirect()->route('alumnos.index');
+    }
+
+    public function buscarAlumno(){
+        $m = $_POST['matricula'];
+        $alumno = Alumno::where('matricula','=',"$m")->first();
+        if($alumno){
+            return redirect()->route('alumnos.show',$alumno->id);    
+        }
+        else{
+            flash('Nno se encontro al Alumno con Matricula: '.$m);
+        return redirect()->back();   
+        }
+        
     }
 }

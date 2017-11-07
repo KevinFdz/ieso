@@ -1,7 +1,7 @@
 @extends('layouts.cabecera')
 @section('title','Horarios')
 @section('content')
-  @for ($i = 1; $i <= 10; $i++)
+@for ($i = 1; $i <= 10; $i++)
                           <div class="panel panel-primary">
                             <div class= "panel-heading">
                             <h1 class="panel-title">Cuatrimestre {{$i}}</h1>
@@ -22,6 +22,8 @@
                                       <td>Cuatrimestre</td>
                                       <td>Turno</td>
                                       <td>Horario</td>
+                                      <td>Calificaciones</td>
+                                      <td>Alumnos</td>
                                     </tr>
                                   <thead>
                                   <tbody>
@@ -30,10 +32,12 @@
                                       @if($grupo->cuatrimestre == $i)
                                       <tr>
                                         <td>{{$grupo->nombre}}</td>
-                                        <td>{{$grupo->licenciatura->nombre}}</td>
+                                        <td>{{$grupo->licenciatura}}</td>
                                         <td>{{$grupo->cuatrimestre}}</td>
                                         <td>{{$grupo->turno}}</td>
-                                        <td><a href="{{route('horarios.show',$grupo)}}" class="btn btn-primary"><span class=" glyphicon glyphicon-eye-open"></span> </a></td>
+                                        <td><a href="{{route('horarios.show',$grupo)}}" class="btn btn-primary"><span class="glyphicon glyphicon-time"></span></a></td>
+                                        <td><a href="{{route('calificaciones.grupo',$grupo)}}" class="btn btn-primary"><span class="glyphicon glyphicon-list-alt"></span></a></td>
+                                        <td><a href="{{route('grupos.show',$grupo)}}" class="btn btn-primary"><span class="glyphicon glyphicon-user"></span></a></td>
                                       </tr>
                                       @endif
                                     @endforeach

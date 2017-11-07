@@ -95,4 +95,6 @@ class Grupo extends Model
             ]);
         return $Grupo;
     }
+
+   
 }

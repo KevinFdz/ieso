@@ -35,7 +35,6 @@ class AlumnoRequest extends FormRequest
             'celular' => 'required|max:10',
             'licenciatura_id' => 'required',
             'cuatrimestre' => 'required',
-            'grupo_id' => 'required'
 
         ];
     }

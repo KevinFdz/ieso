@@ -23,7 +23,11 @@
             <td>{{$alumno->matricula}}</td>
             <td>{{$alumno->nombre}}</td>
             <td>{{$alumno->cuatrimestre}}</td>
+            @if($alumno->grupo_id)
             <td>{{$alumno->grupo->nombre}}</td>
+            @else
+            <td></td>
+            @endif
             <td>{{$alumno->licenciatura->nombre}}</td>
             <td>{{$alumno->status}}</td>
 

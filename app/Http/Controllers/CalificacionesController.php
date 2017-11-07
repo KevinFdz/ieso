@@ -30,18 +30,71 @@ class CalificacionesController extends Controller
         }
 
 
+        public function pdf($ida){
+        $alumno = Alumno::where('id','=',"$ida")->first();
+        $calificaciones = Calificacion::where('alumno_id','=',"$ida")->get();
+        $promedio=$this->promedio($calificaciones);
+        $pdf = \PDF::loadView('calificaciones.pdf', compact('alumno', 'calificaciones','promedio'));
+        return $pdf->download("calificaciones-$alumno->matricula.pdf");
+    
+
+        return $pdf->download('kardex.pdf');
+    }
+
 
         public function ver(){
+
         $alumno = Alumno::AlumnoU();
         $calificaciones = Calificacion::where('alumno_id','=',"$alumno->id")->get();
-        return view('calificaciones.ver')->with('calificaciones',$calificaciones)->with('alumno',$alumno);   
+        $promedio=$this->promedio($calificaciones);
+        return view('calificaciones.ver')->with('calificaciones',$calificaciones)->with('alumno',$alumno)->with('promedio',$promedio);   
         }
+
+        public function verCalificacionA($ida){
+        $alumno = Alumno::where('id','=',"$ida")->first();    
+        $calificaciones = Calificacion::where('alumno_id','=',"$alumno->id")->get();
+        $promedio=$this->promedio($calificaciones);
+        return view('calificaciones.ver')->with('calificaciones',$calificaciones)->with('alumno',$alumno)->with('promedio',$promedio);   
+        }
+
+        public function promedio($calificaciones){
+            $contador = 0;
+            $promedio = 0;
+            foreach($calificaciones as $calificacion){
+                if($calificacion->horario->grupo->cuatrimestre == $calificacion->horario->materia->cuatrimestre){
+                    if($calificacion->promedio){
+                        $promedio +=  $calificacion->promedio;
+                        $contador++;
+                    }
+                    else{
+                        $contador = 0;
+                    }
+                    }
+                }
+                if($contador>0){
+                    $promedio = $promedio/$contador;
+                    if($promedio >= 6){
+                        $promedio = round($promedio,0);
+                        }
+                    else{
+                        $promedio = floor($promedio);
+                    }
+                    
+                    return $promedio;
+                }
+        }
+
+        public function buscarCalificacion(){
+            return view('calificaciones.buscar');
+        }
+
 
         public function verCalificacion(){
             $m = $_POST['matricula'];
         $alumno = Alumno::where('matricula','=',"$m")->first();
         $calificaciones = Calificacion::where('alumno_id','=',"$alumno->id")->get();
-        return view('calificaciones.ver')->with('calificaciones',$calificaciones)->with('alumno',$alumno);   
+        $promedio=$this->promedio($calificaciones);
+        return view('calificaciones.ver')->with('calificaciones',$calificaciones)->with('alumno',$alumno)->with('promedio',$promedio);   
         }
 
         public function verMaterias($idg){
@@ -154,12 +207,30 @@ class CalificacionesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {       
       
         //Buscamos la calificacion que vamos a asignar los nuevos valores con el modelo calificacion y find
         $calificacion= Calificacion::find($id);
-        //Vaciamos los atributos modificados con fill al registro ya existente
+        
+        
+        //Mandamos a llamar el motodo para obtener el promedio de la materia y le pasamos la calificaion del parcial 1,2 y el ordinario
+        $promedio = $this->promedioMateria($request->parcial1,$request->parcial2,$request->ordinario);
+
+        //Vaciamos los atributos modificados con fill al registro ya existente   
         $calificacion->fill($request->all());
+        //Evaluamos si traen datos las calificaiones
+        if($request->parcial1 == ""){
+            $calificacion->parcial1 = null;
+        }
+        if($request->parcial2 == ""){
+
+            $calificacion->parcial2 = null;
+        }
+        if($request->ordinario == ""){
+            $calificacion->ordinario = null;
+        }
+        //Se rellena el campo de promedio, una vez que se obtuvo mediante la funcion promedioMateria
+        $calificacion->promedio = $promedio;
         //Guardamos la calificacion con los campos ya modificados
         $calificacion->save();
         //Redireccionamos al index
@@ -175,11 +246,13 @@ class CalificacionesController extends Controller
      */
     public function destroy($id)
     {
+        /*
         //Buscamos y eliminaos la calificacion que seleccionamos
         Calificacion::destroy($id);
         //Redireccionamos al index
         flash('Se ha eliminado la calificación con exito!!','danger');
         return redirect()->route('calificaciones.index');
+        */
     }
 
 
@@ -196,7 +269,24 @@ class CalificacionesController extends Controller
     */
     
 
-
+    //Funcion para obtener el promedio de la materia si ya tiene calificacion de parcial 1, 2 y el ordinrio, si no tiene, el promdeio se devuelve como valor nulo
+    public function promedioMateria($p1,$p2,$or){
+        if($p1 != null and $p2 != null and $or != null ){
+                $promedio = ($p1+$p2)/2;
+                $promedio = $promedio + $or;
+                $promedio /=2;
+                if($promedio >= 6){
+                $promedio = round($promedio,0);
+                }
+                else{
+                    $promedio = floor($promedio);
+                }
+                return $promedio;
+            }
+        else{
+            return $promedio= null;
+        }
+    }
 
     //Funcion inicializar calificaciones del grupo
     public function inicializar($idg,$idh){
@@ -229,5 +319,11 @@ class CalificacionesController extends Controller
     public function alumnos($idg){
         $alumno = Alumno::where('grupo_id','=',"$idg")->get();
         return $alumno;
+    }
+
+    //se manda a llamar a todos los grupos
+    public function GruposCalificaciones(){
+        $grupos = Grupo::all();
+        return view('calificaciones.GruposCalificaciones')->with('grupos',$grupos);
     }
 }

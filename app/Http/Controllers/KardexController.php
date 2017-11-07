@@ -13,11 +13,15 @@ use App\Http\Requests;
 
 class KardexController extends Controller
 {
+     public function buscarKardex(){
+            return view('kardex.buscar');
+        }
     
 	public function ver(){
         $alumno = Alumno::AlumnoU();
         $kardexs = Kardex::where('alumno_id','=',"$alumno->id")->get();
-        return view('kardex.ver')->with('kardexs',$kardexs)->with('alumno',$alumno);   
+        $promedio=$this->promedio($kardexs);
+        return view('kardex.ver')->with('kardexs',$kardexs)->with('alumno',$alumno)->with('promedio',$promedio);   
         }
 
     public function verKardex(){
@@ -25,9 +29,18 @@ class KardexController extends Controller
         $this->asignar();
         $alumno = Alumno::where('matricula','=',"$m")->first();
         $kardexs = Kardex::where('alumno_id','=',"$alumno->id")->get();
-        return view('kardex.ver')->with('kardexs',$kardexs)->with('alumno',$alumno);   
+        $promedio=$this->promedio($kardexs);
+        return view('kardex.ver')->with('kardexs',$kardexs)->with('alumno',$alumno)->with('promedio',$promedio);   
         }
 
+    public function verKardexA($ida){
+        $alumno = Alumno::where('id','=',"$ida")->first(); 
+        $this->asignar();
+        $alumno = Alumno::where('id','=',"$ida")->first();
+        $kardexs = Kardex::where('alumno_id','=',"$alumno->id")->get();
+        $promedio=$this->promedio($kardexs);
+        return view('kardex.ver')->with('kardexs',$kardexs)->with('alumno',$alumno)->with('promedio',$promedio);   
+        }
 
 	public function asignar(){
         
@@ -40,6 +53,52 @@ class KardexController extends Controller
          
         }
 
+
+         public function promedio($kardexs){
+            
+            $promedio = array(
+                "1" => null,
+                "2" => null,
+                "3" => null,
+                "4" => null,
+                "5" => null,
+                "6" => null,
+                "7" => null,
+                "8" => null,
+                "9" => null,
+                "10" => null,
+                );
+            for($i =1;$i<=10;$i++){   
+            $contador = 0;
+            $prom = 0; 
+                foreach($kardexs as $kardex){
+                    if($kardex->materia->cuatrimestre == $i){
+                        if($kardex->calificacion){
+                            $prom +=  $kardex->calificacion;
+                            $contador++;
+                        }
+                    else{
+                        $contador=0;    
+                    }
+                    }
+                }
+                if($contador > 0){
+                $promedio[$i]= round($prom/$contador, 0);
+                }
+            }
+            return $promedio;
+        }
+
+    public function pdf($ida){
+        $alumno = Alumno::where('id','=',"$ida")->first();
+        $kardexs = Kardex::where('alumno_id','=',"$ida")->get();
+        $promedio=$this->promedio($kardexs);
+        $pdf = \PDF::loadView('kardex.pdf', compact('alumno', 'kardexs','promedio'));
+        return $pdf->download('kardex.pdf');
+    
+
+        return $pdf->download("kardex-$alumno->matriucla.pdf");
+    }
     /**
      * Display a listing of the resource.
      *
@@ -197,16 +256,55 @@ class KardexController extends Controller
     		foreach($materias as $materia){
             $horario = Horario::where('materia_id','=',"$materia->id")->where('grupo_id','=',"$alumno->grupo_id")->first();
             if($horario){
+                $this->comprobarCalificacion($horario->grupo_id,$horario->id);
             	$calificacion= Calificacion::where('alumno_id','=',"$ida")->where('horario_id','=',"$horario->id")->first();
-            	if($calificacion->promedio){
+            	if($calificacion->promedio >=6){
+
             		$Kardex = Kardex::where('alumno_id','=',"$ida")->where('materia_id','=',"$materia->id")->first();
 	            	$Kardex->calificacion = $calificacion->promedio;
-	            	$Kardex->save();	
+                    $Kardex->save();	
             	}
+                else{
+                }
             	
             }
         	}	
     }
+
+    public function comprobarCalificacion($idg,$idh){
+        $alumnos = $this->alumnos($idg);
+        foreach($alumnos as $alumno){
+        $comprobar = Calificacion::where('horario_id','=',"$idh")->where('alumno_id','=',"$alumno->id")->first();
+        if($comprobar){
+        }
+        else{
+            $this->inicializarCalificacion($alumno->id,$idh);
+        }
+        }
+    }
+
+
+    //Funcion inicializar calificaciones del grupo
+    public function inicializarCalificacion($idg,$idh){
+        $alumno = Alumno::where('id','=',"$idg")->first();
+        
+            $calificacion = new Calificacion;
+            $calificacion->horario_id = $idh;
+            $calificacion->alumno_id = $alumno->id;
+            $calificacion->user_id = \Auth::user()->id;
+            $calificacion->save();
+        
+
+    }
+
+
+    //Llama alumno del grupo
+    public function alumnos($idg){
+        $alumno = Alumno::where('grupo_id','=',"$idg")->get();
+        return $alumno;
+    }
+
+
 
 
     public function obtenerMaterias($ida){

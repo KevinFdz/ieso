@@ -21,7 +21,7 @@
                                       <td>Licenciatura</td>
                                       <td>Cuatrimestre</td>
                                       <td>Turno</td>
-                                      <td>Horario</td>
+                                      <td>Calificaciones</td>
                                     </tr>
                                   <thead>
                                   <tbody>
@@ -33,7 +33,7 @@
                                         <td>{{$grupo->licenciatura->nombre}}</td>
                                         <td>{{$grupo->cuatrimestre}}</td>
                                         <td>{{$grupo->turno}}</td>
-                                        <td><a href="{{route('horarios.show',$grupo)}}" class="btn btn-primary"><span class=" glyphicon glyphicon-eye-open"></span> </a></td>
+                                        <td><a href="{{route('calificaciones.grupo',$grupo)}}" class="btn btn-primary"><span class="glyphicon glyphicon-list-alt"></span></a></td>
                                       </tr>
                                       @endif
                                     @endforeach

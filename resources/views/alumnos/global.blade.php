@@ -59,6 +59,15 @@
       {!!Form::text('celular',$alumno->celular,['class'=>'form-control','placeholder'=>'Celular'])!!}
    </div>
 </div>
+
+
+<div class='form-group row'>
+   {!!Form::label('cuatrimestre','cuatrimestre',['class'=>'control-label col-xs-12 col-md-1'])!!}
+   <div class="col-xs-12 col-md-10">
+      {!!Form::select('cuatrimestre',array('1' => '1','2' => '2','3' => '3','4' => '4','5' => '5','6' => '6','7'=>'7','8'=>'8','9'=>'9','10'=>'10'),$alumno->cuatrimestre,['class'=>'form-control select-category'])!!}
+   </div>
+</div>
+
 <!--                       Licenciatura                                 -->
 @if($alumno->licenciatura)<!--  Evaluamos si alumno contiene datos, como contiene datos se manda la etiqueta de editar        -->
    <div class='form-group row'>
@@ -73,31 +82,6 @@
       <div class="col-xs-12 col-md-10">
          {!!Form::select('licenciatura_id',$licenciaturas,null,['class'=>'form-control select-category','placeholder'=>'Elige licenciatura...'])!!}
       </div>
-   </div>
-@endif
-
-<div class='form-group row'>
-   {!!Form::label('cuatrimestre','cuatrimestre',['class'=>'control-label col-xs-12 col-md-1'])!!}
-   <div class="col-xs-12 col-md-10">
-      {!!Form::select('cuatrimestre',array('1' => '1','2' => '2','3' => '3','4' => '4','5' => '5','6' => '6','7'=>'7','8'=>'8','9'=>'9','10'=>'10'),$alumno->cuatrimestre,['class'=>'form-control select-category'])!!}
-   </div>
-</div>
-
-<!--                       Grupo                                 -->
-@if($alumno->grupo)<!--  Evaluamos si alumno contiene datos, como contiene datos se manda la etiqueta de editar        -->
-   <div class='form-group row'>
-      {!!Form::label('grupo','Grupo',['class'=>'control-label col-xs-12 col-md-1'])!!}
-      <div class="col-xs-12 col-md-10">
-         {!!Form::select('grupo_id',$grupos,$alumno->grupo_id,['class'=>'form-control select-category'])!!}
-      </div>
-   </div>
-
-@else
-   <div class='form-group row'>
-   {!!Form::label('grupo','Grupo',['class'=>'control-label col-xs-12 col-md-1'])!!}
-   <div class="col-xs-12 col-md-10">
-      {!!Form::select('grupo_id',$grupos,null,['class'=>'form-control select-category','placeholder'=>'Eliga grupo..'])!!}
-   </div>
    </div>
 
 

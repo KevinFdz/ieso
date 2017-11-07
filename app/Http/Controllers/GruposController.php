@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 use App\Grupo;
+use App\Coordinador;
 use App\Alumno;
 use App\Licenciatura;
 use App\Profesor;
@@ -122,5 +124,30 @@ class GruposController extends Controller
         //Redireccionamos al index
         flash('Se ha eliminado el Grupo con exito!!','danger');
         return redirect()->route('grupos.index');
+    }
+
+    //Se muestra los gurpos que controla cada coordinacion
+    public function GruposCoordinador(){
+        $user = User::find(\Auth::user()->id);
+        $coordinador = Coordinador::where('user_id', '=', $user->id)->first();
+        //$grupo= Grupo::find($profesor->grupo_id);
+        
+        $id = $coordinador->id;
+        $grupos = Grupo::GrupoCoordinador($id);
+        return view('grupos.Coordinador')->with('grupos',$grupos);
+    }
+
+    //Se manda a llamar la vista para asignar alumnos a los grupos
+    public function GrupoAlumnos($idg){
+        $grupo = Grupo::find($idg);
+        //$alumnos= Alumno::orderBy('nombre','ASC')->pluck('nombre','id');
+        $alumnos= Alumno::AlumnoGrupo($grupo->licenciatura_id);
+        return view ('grupos.asignar')->with('grupo',$grupo)->with('alumnos',$alumnos);
+    }
+
+    //Se obtienen los alumnos y se les asigna el grupo
+    public function AsignarAlumnos(Request $request){
+ 
+        
     }
 }

@@ -51,7 +51,7 @@ class Alumno extends Model
 
      //Se declara la relacion uno a uno con Usuario "Un coordinador solo puede tener un usuario "
     public function user(){
-       return $this->hasOne('App\User');
+       return $this->belongsTo('App\User');
     }
 
     //Se declara la relacion con las especialidades muchos a uno "Un alumno solo puede tener una especialidad"
@@ -73,6 +73,25 @@ class Alumno extends Model
             'calificaciones.horario_id as horario_id',
             ]);
         return $Alumno;
+    }
+
+
+    public static function AlumnoGrupo($idl){
+        $Alumnos = Alumno::leftjoin('calificaciones','calificaciones.alumno_id','=','alumnos.id')
+        ->orderBy('id','ASC')
+        ->whereNull('alumnos.grupo_id')
+        ->where('alumnos.licenciatura_id','=',"$idl")
+        ->get([
+            'alumnos.id',
+            'alumnos.nombre as nombre',
+            'calificaciones.parcial1 as parcial1',
+            'calificaciones.parcial2 as parcial2',
+            'calificaciones.ordinario as ordinario',
+            'calificaciones.promedio as promedio',
+            'calificaciones.horario_id as horario_id',
+            ])
+        ->pluck('nombre','id');
+        return $Alumnos;
     }
 
     public static function AlumnoU(){

@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 use App\Horario;
 use App\Aula;
 use App\Grupo;
+use App\Alumno;
 use App\Materia;
 use App\Profesor;
+use App\User;
 use App\Licenciatura;
 use App\Http\Requests;
 use App\Http\Requests\HorarioRequest;
@@ -142,4 +144,34 @@ class HorariosController extends Controller
         flash('Se ha eliminado el Horario con exito!!','danger');
         return redirect()->back();
     }
+
+
+    //Se manda a llamar el horario del profesor logeado
+
+    public function HorarioProfesor(){
+        $user = User::find(\Auth::user()->id);
+        $profesor = Profesor::where('user_id', '=', $user->id)->first();
+        //$grupo= Grupo::find($profesor->grupo_id);
+        $id = $profesor->id;
+        $horarios= Horario::ProfesorHorario($id);
+        return view('horarios.profesor')->with('horarios',$horarios);
+    }
+
+    //Se manda a llamar los clases del grupo seleccionado
+    public function CalificacionesGrupo($idg){
+        $grupo = Grupo::find($idg);
+        $horarios = Horario::GrupoHorario($idg);
+        return view('horarios.Coordinador')->with('grupo',$grupo)->with('horarios',$horarios);
+    }
+
+    //Se manda a llamar el horario del alumno logeado
+
+    public function HorarioAlumno(){
+        $user = User::find(\Auth::user()->id);
+        $alumno = Alumno::where('user_id', '=', $user->id)->first();
+        //$grupo= Grupo::find($profesor->grupo_id);
+        $horarios= Horario::GrupoHorario($alumno->grupo_id);
+        return view('horarios.alumno')->with('horarios',$horarios)->with('alumno',$alumno);
+    }
+
 }

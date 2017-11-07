@@ -31,8 +31,8 @@ class CreateAlumnosTable extends Migration
             $table->enum('status',['regular','resagado'])->default('regular');
             $table->integer('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('licenciatura_id')->references('id')->on('licenciaturas')->onDelete('cascade');
-            $table->foreign('grupo_id')->references('id')->on('grupos')->onDelete('cascade');
+            $table->foreign('licenciatura_id')->references('id')->on('licenciaturas');
+            $table->foreign('grupo_id')->references('id')->on('grupos');
             $table->timestamps();
 
         });

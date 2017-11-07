@@ -15,7 +15,7 @@
 
 				@elseif (Auth::user()->type =='Admin')
 					<li class="dropdown">
-			  			<a href="#" class="drop-toggle" data-toggle="dropdown"><i class="fa fa-book" aria-hidden="true"></i> <span class="caret"></span>	</a>
+			  			<a href="#" class="drop-toggle" data-toggle="dropdown"><i class="fa fa-users" aria-hidden="true"></i> Recursos humanos<span class="caret"></span>	</a>
 
 				  		<ul class="dropdown-menu">
 							<li><a href="{{ url('/alumnos') }}"><i class="fa fa-graduation-cap"></i> Alumnos</a></li>
@@ -25,7 +25,7 @@
 			  			</ul>
 				  	</li>
 			  		<li class="dropdown">
-			  			<a href="#" class="drop-toggle" data-toggle="dropdown"><i class="fa fa-book" aria-hidden="true"></i> <span class="caret"></span>	</a>
+			  			<a href="#" class="drop-toggle" data-toggle="dropdown"><i class="fa fa-book" aria-hidden="true"></i>Recursos Administrativos<span class="caret"></span>	</a>
 
 				  		<ul class="dropdown-menu">
 				  			<li><a href="{{ url('/materias') }}" ><i class="fa fa-book" aria-hidden="true"></i> Materias</a></li>
@@ -35,14 +35,21 @@
 				  		</ul>
 				  	</li>
 				  	<li><a href="{{ url('/horarios') }}"><i class="fa fa-book" aria-hidden="true"></i> Horarios</a></li>
-				  	<li><a href="{{ url('/calificaciones') }}"><i class="fa fa-users" aria-hidden="true"></i> Calificaciones</a></li>
-					<li><a href="{{ url('/kardexs') }}"><i class="fa fa-users" aria-hidden="true"></i> Kardex</a></li>
+				  	<li><a href="{{ url('/calificaciones/grupos') }}"><i class="fa fa-book" aria-hidden="true"></i> Calificaciones</a></li>
+				  	<form class="navbar-form navbar-left" action="{{url('alumno/buscar')}}" method="POST">
+ 					<div class="form-group">{{ csrf_field() }}
+  					<input type="text" class="form-control" name='matricula' placeholder="Matricula del alumno" />
+					 </div>
+					 <button type="submit" class="btn btn-default">Buscar</button>
+					</form>
 				@elseif (Auth::user()->type =='Coordinador')
-					<li><a href="{{ url('/calificaciones') }}"><i class="fa fa-users" aria-hidden="true"></i> Calificaciones</a></li>
-					<li><a href="{{ url('/kardexs') }}"><i class="fa fa-users" aria-hidden="true"></i> Kardex</a></li>
+					<li><a href="{{ url('/grupo/coordinador') }}"><i class="fa fa-users" aria-hidden="true"></i> Grupos</a></li>
+					<li><a href="{{ url('/calificacion/buscar') }}"><i class="fa fa-users" aria-hidden="true"></i> Calificaciones</a></li>
+					<li><a href="{{ url('/kardex/buscar') }}"><i class="fa fa-users" aria-hidden="true"></i> Kardex</a></li>
 				@elseif (Auth::user()->type =='Profesor')
-					<li><a href="{{ url('/home') }}"><i class="fa fa-users" aria-hidden="true"></i> Horario</a></li>
+					<li><a href="{{ url('/horario/profesor') }}"><i class="fa fa-users" aria-hidden="true"></i> Horario</a></li>
 				@elseif (Auth::user()->type =='Alumno')
+					<li><a href="{{ url('/horario/alumno') }}"><i class="fa fa-users" aria-hidden="true"></i> Horario</a></li>
 					<li><a href="{{ url('/calificacion') }}"><i class="fa fa-users" aria-hidden="true"></i> Calificaciones</a></li>
 					<li><a href="{{ url('/kardexx') }}"><i class="fa fa-users" aria-hidden="true"></i> Kardex</a></li>
 				@else

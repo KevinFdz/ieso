@@ -27,7 +27,7 @@
   <div class='form-group row'>
     {!!Form::label('cuatrimestre','Cuatrimestre',['class'=>'control-label col-xs-12 col-md-1'])!!}
     <div class="col-xs-12 col-md-10">
-      {!!Form::select('cuatrimestre',['1','2','3','4','5','6','7','8','9','10'],$grupo->cuatrimestre,['class'=>'form-control','placeholder'=>'Elige cuatrimestre..'])!!}
+      {!!Form::select('cuatrimestre',['1' =>'1','2' =>'2','3' =>'3','4' =>'4','5' =>'5','6' =>'6','7' =>'7','8' =>'8','9' =>'9','10' =>'10'],$grupo->cuatrimestre,['class'=>'form-control','placeholder'=>'Elige cuatrimestre..'])!!}
     </div>
   </div>
   <div class='form-group row'>

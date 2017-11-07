@@ -1,10 +1,6 @@
-@extends('layouts.cabecera')
-@section('title','Alumno: '.$alumno->nombre.' Grupo: '.$alumno->grupo->nombre)
+@extends('layouts.pdf')
+@section('title','Alumno: '. $alumno->nombre .' Grupo: '.$alumno->grupo->nombre)
 @section('content')
-<div class="row"><a href="{{route('kardex.pdf',$alumno->id)}}" class="btn btn-primary col-sm-pull-1 col-sm-1 col-sm-push-10"><span class=" glyphicon glyphicon-cloud-download">PDF</span> </a></div>
-<div class="row">
-  <h1> </h1>
-</div>
 @for ($i = 1; $i <= 10; $i++)
   <div class="panel panel-primary">
     <div class= "panel-heading">
@@ -12,13 +8,11 @@
     </div>
 
     <div class="panel-body">
-      <div class="container-">
-        <div class="row">
+      <div class="container">
           
-          <div class="col-xs-12">
+          
             
-            <div class="table-responsive">
-              <table  class="table table-bordered table-striped table-hover" >
+              <table class="table .table-hover .table-striped" >
                 <thead>
                   <tr>
                     <td>Materia</td>
@@ -34,7 +28,7 @@
                       </tr>
                     @endif
                   @endforeach
-                  <tr class="success">
+                  <tr class="naranja">
                     <td>Promedio cuatrimestre</td>
                     <td>
                     @if($promedio[$i])
@@ -44,10 +38,9 @@
                   </tr>
                 </tbody>
               </table>
-            </div>
-             
-          </div>
-        </div>
+   
+      
+       
       </div>   
     </div>
   </div>  

@@ -13,10 +13,6 @@
    {!!Form::text('ordinario',$calificacion->ordinario,['class'=>'form-control','placeholder'=>'nombre'])!!}
 </div>
 <div class='group'>
-   {!!Form::label('promedio','Promedio')!!}
-   {!!Form::text('promedio',$calificacion->promedio,['class'=>'form-control','placeholder'=>'nombre'])!!}
-</div>
-<div class='group'>
    {!!Form::submit('enviar',['class'=>'btn btn-primary'])!!}
 
 </div>
