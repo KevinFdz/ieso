@@ -1,11 +1,11 @@
 @extends('layouts.cabecera')
-@section('title','Horarios')
+@section('title','Calificaiones')
 @section('content')
   @for ($i = 1; $i <= 10; $i++)
                           <div class="panel panel-primary">
                             <div class= "panel-heading">
                             <h1 class="panel-title">Cuatrimestre {{$i}}</h1>
-                          </div>
+                            </div>
                           <div class="panel-body">
                           <div class="container-">
                           <div class="row">

@@ -2,6 +2,9 @@
 @section('title','Profesores')
 @section('content')
   <a href="{{route('profesores.create')}}" class="btn btn-success"><span class="glyphicon glyphicon-plus">Nuevo</span> </a>
+  <div class="row">
+    <h1> </h1>
+  </div>
   <div class="table-responsive">
     <table class="table table-bordered table-striped table-hover" id="mi_tabla">
       <thead>
@@ -9,8 +12,8 @@
           <td>Matricula</td>
           <td>Nombre</td>
           <td>CURP</td>
-          <td>Horas</td>
           <td>Estado Civil</td>
+          <td>Perfil</td>
           <td>Editar</td>
           <td>Eliminar</td>
         </tr>
@@ -21,9 +24,8 @@
             <td>{{$profesor->matricula}}</td>
             <td>{{$profesor->nombre}}</td>
             <td>{{$profesor->curp}}</td>
-            <td>{{$profesor->horas}}</td>
             <td>{{$profesor->estado_c}}</td>
-
+            <td><a href="{{route('profesores.show',$profesor->id)}}" class="btn btn-primary"><span class=" glyphicon glyphicon-eye-open"></span> </a></td>
             <td>
               <a href="{{route('profesores.edit',$profesor)}}" class="btn btn-warning"><span class="glyphicon glyphicon-wrench"></span> </a>
             </td>

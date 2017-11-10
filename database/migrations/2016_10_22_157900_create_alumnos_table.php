@@ -28,7 +28,7 @@ class CreateAlumnosTable extends Migration
             $table->integer('licenciatura_id')->unsigned()->nullable();
             $table->enum('cuatrimestre',['1','2','3','4','5','6','7','8','9','10']);
             $table->integer('grupo_id')->unsigned()->nullable();
-            $table->enum('status',['regular','resagado'])->default('regular');
+            $table->enum('status',['Regular','Resagado'])->default('regular');
             $table->integer('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('licenciatura_id')->references('id')->on('licenciaturas');
@@ -43,7 +43,7 @@ class CreateAlumnosTable extends Migration
             'nombre'=>'juan',
             'fecha_n' => '1987-11-01' ,
             'curp'=>'321654987987456321',
-            'estado_c'=>'soltero',
+            'estado_c'=>'Soltero',
             'colonia'=>'reforma',
             'calle'=>'rosas',
             'cp'=>'68100',

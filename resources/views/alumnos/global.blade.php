@@ -8,7 +8,7 @@
 <div class='form-group row'>
    {!!Form::label('nombre','Nombre',['class'=>'control-label col-xs-12 col-md-1'])!!}
    <div class="col-xs-12 col-md-10">
-      {!!Form::text('nombre',$alumno->nombre,['class'=>'form-control','placeholder'=>'escribe el nombre'])!!}
+      {!!Form::text('nombre',$alumno->nombre,['class'=>'form-control','placeholder'=>'Nombre del alumno'])!!}
    </div>
 </div>
 <div class='form-group row'>
@@ -26,7 +26,7 @@
 <div class='form-group row'>
    {!!Form::label('estado_c','Estado Civil',['class'=>'control-label col-xs-12 col-md-1'])!!}
    <div class="col-xs-12 col-md-10">
-      {!!Form::select('estado_c',['soltero' => 'soltero','casado' => 'casado'],$alumno->estado_c,['class'=>'form-control select-category','placeholder'=>' '])!!}
+      {!!Form::select('estado_c',['Soltero' => 'Soltero','Casado' => 'Casado'],$alumno->estado_c,['class'=>'form-control select-category','placeholder'=>' '])!!}
    </div>
 </div>
 <div class='form-group row'>
@@ -62,9 +62,9 @@
 
 
 <div class='form-group row'>
-   {!!Form::label('cuatrimestre','cuatrimestre',['class'=>'control-label col-xs-12 col-md-1'])!!}
+   {!!Form::label('Cuatrimestre','Cuatrimestre',['class'=>'control-label col-xs-12 col-md-1'])!!}
    <div class="col-xs-12 col-md-10">
-      {!!Form::select('cuatrimestre',array('1' => '1','2' => '2','3' => '3','4' => '4','5' => '5','6' => '6','7'=>'7','8'=>'8','9'=>'9','10'=>'10'),$alumno->cuatrimestre,['class'=>'form-control select-category'])!!}
+      {!!Form::select('cuatrimestre',array('1' => '1','2' => '2','3' => '3','4' => '4','5' => '5','6' => '6','7'=>'7','8'=>'8','9'=>'9','10'=>'10'),$alumno->cuatrimestre,['class'=>'form-control select-category','placeholder'=>'Cuatrimestre..'])!!}
    </div>
 </div>
 
@@ -86,7 +86,7 @@
 
 
    <div class="form-group row {{ $errors->has('email') ? ' has-error' : '' }}">
-            <label for="email" class="col-xs-12 col-md-1">E-Mail</label>
+            <label for="email" class="control-label col-xs-12 col-md-1">E-Mail</label>
 
             <div class="col-xs-12 col-md-10">
                 <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
@@ -101,7 +101,7 @@
    
 
    <div class="form-group row{{ $errors->has('password') ? ' has-error' : '' }}">
-            <label for="contraseña" class="col-xs-12 col-md-1">Contraseña</label>
+            <label for="contraseña" class="control-label col-xs-12 col-md-1">Contraseña</label>
 
             <div class="col-xs-12 col-md-10">
                 <input id="password" type="password" class="form-control" name="password" required>
@@ -114,8 +114,8 @@
             </div>
    </div>
 
-   <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-      <label for="password-confirm" class="col-xs-12 col-md-1">Confirmar Contraseña</label>
+   <div class="form-group row{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
+      <label for="password-confirm" class="control-label  col-xs-12 col-md-1">Confirmar Contraseña</label>
 
       <div class="col-xs-12 col-md-10">
           <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
@@ -128,8 +128,7 @@
       </div>
    </div>
 @endif
-
-   
+ 
 
 <div class='form-group row'>
    {!!Form::submit('Enviar',['class'=>'btn btn-primary col-xs-offset-1'])!!}

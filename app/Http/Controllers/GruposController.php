@@ -119,6 +119,17 @@ class GruposController extends Controller
      */
     public function destroy($id)
     {
+        $alumnos = Alumno::where('grupo_id','=',"$id")->get();
+        foreach ($alumnos as $alumno) {
+            $alumno->grupo_id = null;
+            $alumno->save();
+        }
+        /*
+        $horarios = Horario::HorariosAnteriores();
+        foreach ($horarios as $horario) {
+            $horario->grupo_id = null;
+            $horario->save();
+        }*/
         //Buscamos y eliminaos la grupo que seleccionamos
         Grupo::destroy($id);
         //Redireccionamos al index
@@ -141,13 +152,33 @@ class GruposController extends Controller
     public function GrupoAlumnos($idg){
         $grupo = Grupo::find($idg);
         //$alumnos= Alumno::orderBy('nombre','ASC')->pluck('nombre','id');
-        $alumnos= Alumno::AlumnoGrupo($grupo->licenciatura_id);
+        $alumnos= Alumno::AlumnoGrupo($grupo);
         return view ('grupos.asignar')->with('grupo',$grupo)->with('alumnos',$alumnos);
     }
 
     //Se obtienen los alumnos y se les asigna el grupo
     public function AsignarAlumnos(Request $request){
- 
-        
+        $this->validate($request, [
+            'alumnos_id' => 'required'
+            ],['alumnos_id.required' => 'Selecciona un Alumno']);
+        $alumnos = $_POST['alumnos_id'];
+        $grupo = $_POST['idg'];
+        foreach ($alumnos as $ida) {
+            $alumno = Alumno::find($ida);
+            $alumno->grupo_id = $grupo;
+            $alumno->save();
+        }
+        flash('Se añadieron los alumnos al grupo con exito!!','success');
+        return redirect()->route('grupos.show',$grupo);
+
+    }
+
+    public function RemoverAlumnoGrupo($ida){
+        $alumno = Alumno::find($ida);
+        $idg=$alumno->grupo_id; 
+        $alumno->grupo_id = null;
+        $alumno->save();
+        flash('Se removio el alumno '.$alumno->nombre.' del grupo con exito!!','success');
+        return redirect()->route('grupos.show',$idg);
     }
 }

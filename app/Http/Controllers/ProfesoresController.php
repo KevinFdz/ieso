@@ -64,6 +64,8 @@ class ProfesoresController extends Controller
     public function show($id)
     {
         //
+        $profesor = Profesor::find($id);
+        return view('profesores.show')->with('profesor',$profesor);
     }
 
     /**

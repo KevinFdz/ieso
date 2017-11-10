@@ -1,5 +1,5 @@
 @extends('layouts.cabecera')
-@section('title',$alumno->nombre)
+@section('title','Horario')
 @section('content')
  <div class="table-responsive">
                             <table  class="table table-bordered table-striped table-hover" id="mi_tabla">
@@ -19,12 +19,12 @@
                               <tbody>
 
                                 @foreach($horarios as $horario)
-                                @if($horario->cuatrimestre_g == $horario->cuatrimestre)
+                                @if($horario->materia->cuatrimestre == $alumno->cuatrimestre)
                                   <tr>
                                     <td>{{$horario->aula}}</td>
-                                    <td>{{$horario->grupo}}</td>
-                                    <td>{{$horario->materia}}</td>
-                                    <td>{{$horario->profesor}}</td>
+                                    <td>{{$horario->grupo->nombre}}</td>
+                                    <td>{{$horario->materia->nombre}}</td>
+                                    <td>{{$horario->profesor->nombre}}</td>
                                     <td>{{$horario->lunes_i}} - {{$horario->lunes_f}}</td>
                                     <td>{{$horario->martes_i}} - {{$horario->martes_f}}</td>
                                     <td>{{$horario->miercoles_i}} - {{$horario->miercoles_f}}</td>

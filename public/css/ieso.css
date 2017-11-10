@@ -46,8 +46,35 @@ header {
   color: #fff;
   background-color: #000;
 }
-.table tbody>tr.naranja{
-    color: #fff;
-  background-color: #FF562F;
-  border-color: #FF562F;
+ .table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 20px;
 }
+ .horario {
+    width: 100%;
+  max-width: 100%;
+  margin-bottom: 20px;
+  }
+  
+  .horario tbody>tr>td {;
+height: 80px; /*Aquí el Alto*/
+  }
+  .horario > tbody > tr > td.activo {
+    background-color: #FF562F;
+  }
+
+  .horario > thead > tr > th,
+.horario > tbody > tr > th,
+.horario > tfoot > tr > th,
+.horario > thead > tr > td,
+.horario > tbody > tr > td,
+.horario > tfoot > tr > td {
+  padding: 8px;
+  line-height: 1.42857143;
+  vertical-align: top;
+  border-top: 1px solid #ddd;
+  border: 1px solid #ddd;
+}
+
+

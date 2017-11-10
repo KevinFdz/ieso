@@ -43,7 +43,7 @@ class Profesor extends Model
 
     //Se declara la relacion uno a uno con Usuario "Un usuario solo puede pertenecer a un grupo"
     public function user(){
-       return $this->hasOne('App\User');
+       return $this->belongsTo('App\User');
     }
 
     public function horarios(){

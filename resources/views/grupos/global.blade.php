@@ -33,13 +33,13 @@
   <div class='form-group row'>
     {!!Form::label('turno','Turno',['class'=>'control-label col-xs-12 col-md-1'])!!}
     <div class="col-xs-12 col-md-10">
-      {!!Form::select('turno',['1' => 'matutino', '2' => 'vespertino'],$grupo->turno,['class'=>'form-control','placeholder'=>'Elige turno..'])!!}
+      {!!Form::select('turno',['1' => 'Matutino', '2' => 'Vespertino'],$grupo->turno,['class'=>'form-control','placeholder'=>'Elige turno..'])!!}
     </div>
 
   </div>
 
   <div class='form-group row'>
-     {!!Form::submit('enviar',['class'=>'btn btn-primary col-xs-offset-1'])!!}
+     {!!Form::submit('Enviar',['class'=>'btn btn-primary col-xs-offset-1'])!!}
 
   </div>
  {!!Form::close()!!}

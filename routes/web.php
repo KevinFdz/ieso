@@ -16,21 +16,34 @@ Route::get('/', function () {
 });
 
 Route::group(['middleware' => 'auth'], function () {
-    //
+//////////////////////////admin general///////////////////////
     Route::group(['middleware' => 'admin'], function () {
     	Route::resource('aulas','AulasController');
 		Route::resource('licenciaturas','LicenciaturasController');
 		Route::resource('coordinadores','CoordinadoresController');
 		Route::resource('materias','MateriasController');
-
+		Route::get('fin',[
+			'uses' => 'KardexController@Fin',
+			'as' => 'fin'
+		]);
+		Route::get('fin/cuatrimestre',[
+			'uses' => 'KardexController@FinCuatrimestre',
+			'as' => 'fin.cuatrimestre'
+		]);
     });
 
+
+///////////////////////Administrativo/////////////////////
     Route::group(['middleware' => 'administrativo'], function () {
     	Route::resource('tutores','TutoresController');
 		Route::resource('alumnos','AlumnosController');
 		Route::get('calificaciones/grupos',[
 		'uses' => 'CalificacionesController@GruposCalificaciones',
 		'as' => 'calificaciones.grupos'
+		]);
+		Route::get('grupos/{idg}/remover',[
+		'uses' => 'GruposController@RemoverAlumnoGrupo',
+		'as' => 'grupos.remover'
 		]);
 		Route::get('grupos/{idg}/alumnos',[
 		'uses' => 'GruposController@GrupoAlumnos',
@@ -40,8 +53,11 @@ Route::group(['middleware' => 'auth'], function () {
 		'uses' => 'GruposController@AsignarAlumnos',
 		'as' => 'gruposA.store'
 		]);
+		Route::resource('reticula','KardexController');
     });
 
+
+//////////////////////////Coordinador//////////////////////////////
     
     Route::group(['middleware' => 'coordinador'], function () {
     	Route::resource('alumnos','AlumnosController');
@@ -80,13 +96,13 @@ Route::group(['middleware' => 'auth'], function () {
 					'uses' => 'KardexController@pdf',
 					'as' => 'kardex.pdf'
 			]);
-		Route::get('calificaiones/{idg}/grupo',[
-					'uses' => 'HorariosController@CalificacionesGrupo',
+		Route::get('calificaciones/{idg}/grupo',[
+					'uses' => 'CalificacionesController@CalificacionesGrupo',
 					'as' => 'calificaciones.grupo'
 			]);
 	});
 
-    
+    ///////////////////////////Profesor/////////////////////
 	Route::group(['middleware' => ['profesor']], function () {
 		Route::resource('calificaciones','CalificacionesController');
 		Route::get('calificaciones/{idg}/asignar',[
@@ -110,6 +126,8 @@ Route::group(['middleware' => 'auth'], function () {
 		]);
 	});
 
+
+/////////////////////////Alumno///////////////////////
 	Route::get('horario/alumno',[
 			'uses' => 'HorariosController@HorarioAlumno',
 			'as' => 'horarioss.alumno'

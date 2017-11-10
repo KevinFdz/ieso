@@ -71,7 +71,7 @@ class HorariosController extends Controller
         //dd($horario->grupo_id);
         $horario->save();
         //mandamos un mensaje de registro exitoso
-        flash('Se ha registrado el Horario '.$horario->id.' con exito!!','success');
+        flash('Se ha registrado el Horario '.$horario->materia->nombre.' con exito!!','success');
         //Redireccionamos al index
         //return redirect()->route('horarios.index');
         return redirect()->route('horarios.show',$horario->grupo_id);
@@ -87,11 +87,29 @@ class HorariosController extends Controller
     {
         $grupo= Grupo::find($id);
         ////Se manda a llamar todas las horarios que existen en la tabla 'horarios' mediante el modelo horario
-        $horarios= Horario::GrupoHorario($id);
+        $horarios= Horario::GrupoHorario($grupo);
+        //se manda a llamar los horarios actuales
+        //$horarios = $this->ArmarHorario($horariosT,$grupo);
         //Se manda a llamar la vista index y le pasamos la lista de usuarios que obtuvimos mediante el modelo horario
+        //dd($horarios);
         return view('horarios.show')->with('horarios',$horarios)->with('grupo',$grupo);
     }
 
+
+    //Se arma el horario del cuatrimestre actual
+    public function ArmarHorario($horariosT,$grupo){
+        foreach ($horariosT as $horario) {
+            if($horario->cuatrimestre == $grupo->cuatrimestre){
+                $horarios = new Horario;
+                if($horarios->lunes_i){
+                }
+                else{
+
+                }
+            }
+        }
+    }
+    
     /**
      * Show the form for editing the specified resource.
      *
@@ -157,12 +175,7 @@ class HorariosController extends Controller
         return view('horarios.profesor')->with('horarios',$horarios);
     }
 
-    //Se manda a llamar los clases del grupo seleccionado
-    public function CalificacionesGrupo($idg){
-        $grupo = Grupo::find($idg);
-        $horarios = Horario::GrupoHorario($idg);
-        return view('horarios.Coordinador')->with('grupo',$grupo)->with('horarios',$horarios);
-    }
+    
 
     //Se manda a llamar el horario del alumno logeado
 
@@ -170,8 +183,10 @@ class HorariosController extends Controller
         $user = User::find(\Auth::user()->id);
         $alumno = Alumno::where('user_id', '=', $user->id)->first();
         //$grupo= Grupo::find($profesor->grupo_id);
-        $horarios= Horario::GrupoHorario($alumno->grupo_id);
+
+        $horarios= Horario::where('grupo_id','=',"$alumno->grupo_id")->get();
         return view('horarios.alumno')->with('horarios',$horarios)->with('alumno',$alumno);
+
     }
 
 }

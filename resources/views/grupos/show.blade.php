@@ -11,8 +11,7 @@
         <tr>
           <td>Alumno</td>
           <td>Perfil</td>
-          <td>Calificaciones</td>
-          <td>Kardex</td>
+          <td>Remover</td>
         </tr>
       <thead>
       <tbody>
@@ -21,8 +20,7 @@
           <tr>
             <td>{{$alumno->nombre}}</td>
             <td><a href="{{route('alumnos.show',$alumno)}}" class="btn btn-primary"><span class=" glyphicon glyphicon-eye-open"></span> </a></td>
-            <td><a href="{{route('calificacion.calificacion',$alumno)}}" class="btn btn-primary"><span class=" glyphicon glyphicon-eye-open"></span> </a></td>
-            <td><a href="{{route('kardex.alumno',$alumno)}}" class="btn btn-primary"><span class=" glyphicon glyphicon-eye-open"></span> </a></td>
+            <td><a href="{{route('grupos.remover',$alumno)}}" class="btn btn-danger"><span class="glyphicon glyphicon-remove-sign"></span> </a></td>
           </tr>
         @endforeach
       </tbody>

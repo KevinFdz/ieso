@@ -21,7 +21,11 @@
                       </tr>
                       <tr>
                         <td>Grupo:</td>
-                        <td>{{$alumno->grupo->nombre}}</td>
+                        @if($alumno->grupo_id)
+                          <td>{{$alumno->grupo->nombre}}</td>
+                        @else
+                          <td></td>
+                        @endif
                       </tr>
                       <tr>
                         <td>Cutrimestre:</td>
@@ -70,7 +74,9 @@
                       </tr>
                     </tbody>
                   </table>
-                  
+                  @if($alumno->grupo_id)
+                  <a href="{{route('horarios.show',$alumno->grupo_id)}}" class="btn btn-primary">Horario</a>
+                  @endif
                   <a href="{{route('calificacion.calificacion',$alumno)}}" class="btn btn-primary">Calificaciones</a>
                   <a href="{{route('kardex.alumno',$alumno)}}" class="btn btn-primary">Kardex</a>
                 </div>

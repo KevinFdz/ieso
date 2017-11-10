@@ -1,5 +1,5 @@
 @extends('layouts.cabecera')
-@section('title',''.$profesor->nombre)
+@section('title',''.$coordinador->nombre)
 @section('content')
 <div class="container">
       <div class="row">
@@ -15,47 +15,49 @@
                 <div class=" col-md-9 col-lg-9 "> 
                   <table class="table table-user-information">
                     <tbody>
+                      <tr>
+                        <td>Licenciatura:</td>
+                        <td>{{$coordinador->licenciatura->nombre}}</td>
+                      </tr>
+                      
                          <tr>
                              <tr>
                         <td>Fecha de nacimiento:</td>
-                        <td>{{$profesor->fecha_n}}</td>
+                        <td>{{$coordinador->fecha_n}}</td>
                       </tr>
                         <tr>
                         <td>Curp:</td>
-                        <td>{{$profesor->curp}}</td>
+                        <td>{{$coordinador->curp}}</td>
                       </tr>
                       <tr>
                         <td>Email:</td>
-                        <td><a href="mailto:{{$profesor->user->email}}">{{$profesor->user->email}}</a></td>
+                        <td><a href="mailto:{{$coordinador->user->email}}">{{$coordinador->user->email}}</a></td>
                       </tr>
                         <td>Colonia:</td>
-                        <td>{{$profesor->colonia}}
+                        <td>{{$coordinador->colonia}}
                         </td>
                            
                       </tr>
                      <tr>
                         <td>Calle:</td>
-                        <td>{{$profesor->calle}}</td>
+                        <td>{{$coordinador->calle}}</td>
                       </tr>
                       <tr>
                         <td>Codigo Postal:</td>
-                        <td>{{$profesor->cp}}</td>
+                        <td>{{$coordinador->cp}}</td>
                       </tr>
                       <tr>
                         <td>Telefono de Casa:</td>
-                        <td>{{$profesor->telefono_c}}</td>
+                        <td>{{$coordinador->telefono_c}}</td>
                       </tr>
                    
                          <tr>
                              <tr>
                         <td>Celular:</td>
-                        <td>{{$profesor->celular}}</td>
+                        <td>{{$coordinador->celular}}</td>
                       </tr>
                     </tbody>
                   </table>
-                  
-                  <a href="{{route('horarios.show',$profesor)}}" class="btn btn-primary">Horario</a>
-                  
                 </div>
               </div>
             </div>

@@ -18,6 +18,7 @@ class KardexController extends Controller
         }
     
 	public function ver(){
+        $this->asignar();
         $alumno = Alumno::AlumnoU();
         $kardexs = Kardex::where('alumno_id','=',"$alumno->id")->get();
         $promedio=$this->promedio($kardexs);
@@ -78,7 +79,8 @@ class KardexController extends Controller
                             $contador++;
                         }
                     else{
-                        $contador=0;    
+                        $contador=0;
+                        break;    
                     }
                     }
                 }
@@ -119,11 +121,7 @@ class KardexController extends Controller
      */
     public function create()
     {
-        $coordinadores= Coordinador::orderBy('nombre','ASC')->pluck('nombre','id');
-        //Se crea un objeto vacio del modelo Licenciatura
-        $licenciatura= new Licenciatura;
-        //Se manda a llamar la vista create y le pasamos el objeto vacio que creamos con el modelo Licenciatura
-        return view('licenciaturas.create')->with('licenciatura',$licenciatura)->with('coordinadores',$coordinadores);
+       
     }
 
     /**
@@ -134,14 +132,7 @@ class KardexController extends Controller
      */
     public function store(LicenciaturaRequest $request)
     {
-        //Creamos un prodcuto nuevo con el modelo Licenciatura y lo rellenamos con los datos que ingresa el usuario
-        $licenciatura = new Licenciatura($request->all());
-        //Mandamos a guaradar la nueva licenciatura creada
-        $licenciatura->save();
-        //mandamos un mensaje de registro exitoso
-        flash('Se ha registrado la Licenciatura '.$licenciatura->nombre.' con exito!!','success');
-        //Redireccionamos al index
-        return redirect()->route('licenciaturas.index');
+        
     }
 
     /**
@@ -163,11 +154,11 @@ class KardexController extends Controller
      */
     public function edit($id)
     {
-        $coordinadores= Coordinador::orderBy('nombre','ASC')->pluck('nombre','id');
+        
         //Buscamos la licenciatura que queremos modificar con el modelo Licenciatura y con el parametro ID que rescibimos
-        $licenciatura = Licenciatura::find($id);
+        $kardex = Kardex::find($id);
         //Mandamos a llamar la vista edit y le mandamos la licenciatura que extragimos de la base mediante el model Licenciatura
-        return view('licenciaturas.edit')->with('licenciatura',$licenciatura)->with('coordinadores',$coordinadores);
+        return view('kardex.edit')->with('kardex',$kardex);
     }
 
     /**
@@ -179,19 +170,13 @@ class KardexController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //Se declara la validacion
-        $this->validate($request, [
-            'nombre' => 'required|unique:licenciaturas,nombre,'."$id"
-            ]);
         //Buscamos la licenciatura que vamos a asignar los nuevos valores con el modelo Licenciatura y find
-        $licenciatura= Licenciatura::find($id);
+        $kardex= Kardex::find($id);
         //Vaciamos los atributos modificados con fill al registro ya existente
-        $licenciatura->fill($request->all());
-        //Guardamos la licenciatura con los campos ya modificados
-        $licenciatura->save();
-        //Redireccionamos al index
-        flash('Se ha actualizado la Licenciatura '.$licenciatura->nombre.' con exito!!','success');
-        return redirect()->route('licenciaturas.index');
+        $kardex->calificacion =$request->calificacion;
+        $kardex->save();
+        flash('Se ha actualizado la calificacion de la materia'.$kardex->materia->nombre.' con exito!!','success');
+        return redirect()->route('kardex.alumno',$kardex->alumno_id);
     }
 
     /**
@@ -202,11 +187,6 @@ class KardexController extends Controller
      */
     public function destroy($id)
     {
-        //Buscamos y eliminaos la licenciatura que seleccionamos
-        Licenciatura::destroy($id);
-        //Redireccionamos al index
-        flash('Se ha eliminado la Licenciatura con exito!!','danger');
-        return redirect()->route('licenciaturas.index');
     }
 
 
@@ -221,6 +201,63 @@ class KardexController extends Controller
     */
     
     //comprar si ya fue inicializado las calificaciones del grupo
+    //funcion para terminar el cuatrimestre
+  public function Fin(){
+    return view ('kardex.fin');
+  }
+
+  public function FinCuatrimestre(){
+    $this->asignar();
+    $grupos = Grupo::all();
+    foreach($grupos as $grupo){
+      $this->AlumnosFinCuatrimestre($grupo->id);
+      $cuatrimestre = $grupo->cuatrimestre + 1;
+      $grupo->cuatrimestre = $cuatrimestre;
+      $grupo->save();
+    }
+    return redirect('home');
+  }
+
+
+  //Se cambia de cuatrimestre a los alumnos que no adeudan ni una materia y se lo pone el status de irregular a los que adeudan materias
+
+  public function AlumnosFinCuatrimestre($idg){
+    $alumnos = Alumno::where('grupo_id','=',"$idg")->get();
+    foreach($alumnos as $alumno){
+        $this->AlumnoStatus($alumno);
+        if($alumno->status == "Regular"){
+              $cuatrimestre = $alumno->cuatrimestre + 1;
+              $alumno->cuatrimestre = $cuatrimestre;
+              $alumno->save();
+        }
+        else{
+          $alumno->grupo_id = null;
+          $alumno->save();
+        }
+    }
+    $this->borrarCalificacionesReprobatorias();
+  }
+
+  //Se evalua si el alumno es regular o irregular, obteinendo sus calificaciones del cuatrimestre
+
+  public function AlumnoStatus($alumno){
+      $status = "Regular";
+      $calificaciones = Calificacion::where('alumno_id','=',"$alumno->id")->get();
+      //Falta metodo para ver quien tiene asignado materias pero no lo calificaron
+       foreach($calificaciones as $calificacion){
+          if($calificacion->horario->materia->cuatrimestre == $alumno->cuatrimestre){
+            if($calificacion->promedio == null or $calificacion->promedio<= 6){
+                $status = "Resagado";
+                break;
+            }
+          }
+          else{
+          }
+        }
+        $alumno->status = $status;
+        $alumno->save();
+
+  }
 
     public function comprobar(){
         $alumnos = Alumno::all();
@@ -252,7 +289,7 @@ class KardexController extends Controller
 
     public function llenarkardex($ida){
     		$alumno = $this->obtenerAlumno($ida);	
-    		$materias = $this->obtenerMaterias($ida);	
+    		$materias = $this->obtenerMaterias($ida);
     		foreach($materias as $materia){
             $horario = Horario::where('materia_id','=',"$materia->id")->where('grupo_id','=',"$alumno->grupo_id")->first();
             if($horario){
@@ -318,5 +355,13 @@ class KardexController extends Controller
     public function obtenerAlumno($ida){
         $alumno = Alumno::where('id','=',"$ida")->first();
         return $alumno;
+    }
+
+    //Al finalizar el semestre se borran las calificaciones reprobatorias
+    public function borrarCalificacionesReprobatorias(){
+        $calificaciones = Calificacion::orwhere('promedio','<','6')->orwherenull('promedio')->get();
+        foreach ($calificaciones as $calificacion) {
+            $calificacion->delete();
+        }
     }
 }

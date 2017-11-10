@@ -51,10 +51,11 @@ class CalificacionesController extends Controller
         }
 
         public function verCalificacionA($ida){
-        $alumno = Alumno::where('id','=',"$ida")->first();    
-        $calificaciones = Calificacion::where('alumno_id','=',"$alumno->id")->get();
-        $promedio=$this->promedio($calificaciones);
-        return view('calificaciones.ver')->with('calificaciones',$calificaciones)->with('alumno',$alumno)->with('promedio',$promedio);   
+            $alumno = Alumno::where('id','=',"$ida")->first();    
+            $calificaciones = Calificacion::where('alumno_id','=',"$alumno->id")->get();
+            $promedio=$this->promedio($calificaciones);            
+            return view('calificaciones.verCoordinador')->with('calificaciones',$calificaciones)->with('alumno',$alumno)->with('promedio',$promedio);   
+
         }
 
         public function promedio($calificaciones){
@@ -71,6 +72,7 @@ class CalificacionesController extends Controller
                     }
                     }
                 }
+
                 if($contador>0){
                     $promedio = $promedio/$contador;
                     if($promedio >= 6){
@@ -98,7 +100,8 @@ class CalificacionesController extends Controller
         }
 
         public function verMaterias($idg){
-            $horarios = Horario::GrupoHorario($idg);
+            $grupo = Grupo::find($idg);
+            $horarios = Horario::GrupoHorario($grupo);
             return view('calificaciones.materias')->with('horarios',$horarios);
 
         }
@@ -267,7 +270,12 @@ class CalificacionesController extends Controller
     Funciones personalizadas
 
     */
-    
+    //Se manda a llamar los clases del grupo seleccionado
+    public function CalificacionesGrupo($idg){
+        $grupo = Grupo::find($idg);
+        $horarios = Horario::GrupoHorario($grupo);
+        return view('calificaciones.grupos')->with('grupo',$grupo)->with('horarios',$horarios);
+    }
 
     //Funcion para obtener el promedio de la materia si ya tiene calificacion de parcial 1, 2 y el ordinrio, si no tiene, el promdeio se devuelve como valor nulo
     public function promedioMateria($p1,$p2,$or){
@@ -289,8 +297,7 @@ class CalificacionesController extends Controller
     }
 
     //Funcion inicializar calificaciones del grupo
-    public function inicializar($idg,$idh){
-        $alumno = Alumno::where('id','=',"$idg")->first();
+    public function inicializar($alumno,$idh){
         
             $calificacion = new Calificacion;
             $calificacion->horario_id = $idh;
@@ -310,7 +317,7 @@ class CalificacionesController extends Controller
         if($comprobar){
         }
         else{
-            $this->inicializar($alumno->id,$idh);
+            $this->inicializar($alumno,$idh);
         }
         }
     }

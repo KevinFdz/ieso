@@ -24,7 +24,7 @@ class AlumnoRequest extends FormRequest
     public function rules()
     {
         return [
-            'matricula' => 'required|max:100',
+            'matricula' => 'required|max:100|unique:alumnos',
             'nombre' => 'required|max:100',
             'fecha_n' => 'required|date_format:"Y-m-d"',
             'curp' => 'required|max:18|min:18',

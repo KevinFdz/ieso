@@ -2,7 +2,7 @@
 <div class='form-group row'>
    {!!Form::label('nombre','Nombre',['class'=>'control-label col-xs-12 col-md-1'])!!}
    <div class="col-xs-12 col-md-10">
-      {!!Form::text('name',$usuario->name,['class'=>'form-control','placeholder'=>'escribe el nombre'])!!}
+      {!!Form::text('nombre',$usuario->name,['class'=>'form-control','placeholder'=>'Escribe el nombre'])!!}
    </div>
 </div>
 <div class='form-group row {{ $errors->has('email') ? ' has-error' : '' }}'>

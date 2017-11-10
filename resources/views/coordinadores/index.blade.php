@@ -2,6 +2,9 @@
 @section('content')
 @section('title','Coordinadores')
 <a href="{{route('coordinadores.create')}}" class="btn btn-success"><span class="glyphicon glyphicon-plus">Nuevo</span> </a>
+<div class="row">
+    <h1> </h1>
+  </div>
 <div class="conteiner">
   <div class="table-responsive">
     <table class="table table-bordered table-striped table-hover" id="mi_tabla">
@@ -11,12 +14,7 @@
           <td>Nombre</td>
           <td>Fecha de Nacimiento</td>
           <td>CURP</td>
-          <td>Estado Civil</td>
-          <td>Colonia</td>
-          <td>Calle</td>
-          <td>CP</td>
-          <td>Telefono_C</td>
-          <td>Celular</td>
+          <td>Perfil</td>
           <td>Editar</td>
           <td>Eliminar</td>
         </tr>
@@ -29,13 +27,7 @@
             <td>{{$coordinador->nombre}}</td>
             <td>{{$coordinador->fecha_n}}</td>
             <td>{{$coordinador->curp}}</td>
-            <td>{{$coordinador->estado_c}}</td>
-            <td>{{$coordinador->colonia}}</td>
-            <td>{{$coordinador->calle}}</td>
-            <td>{{$coordinador->cp}}</td>
-            <td>{{$coordinador->telefono_c}}</td>
-            <td>{{$coordinador->celular}}</td>
-
+            <td><a href="{{route('coordinadores.show',$coordinador)}}" class="btn btn-primary"><span class=" glyphicon glyphicon-eye-open"></span> </a></td>
 
             <td>
               <a href="{{route('coordinadores.edit',$coordinador)}}" class="btn btn-warning"><span class="glyphicon glyphicon-wrench"></span> </a>

@@ -2,6 +2,9 @@
 @section('title','Licenciatura')
 @section('content')
   <a href="{{route('licenciaturas.create')}}" class="btn btn-success"><span class="glyphicon glyphicon-plus">Nuevo</span> </a>
+  <div class="row">
+    <h1> </h1>
+  </div>
   <div class="table-responsive">
     <table class="table table-bordered table-striped table-hover" id="mi_tabla">
       <thead>

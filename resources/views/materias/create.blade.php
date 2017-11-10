@@ -8,6 +8,7 @@
 @section('chosen')
 	<script>
     	$(".select-licenciatura").chosen({
+    		no_results_text: "No se encontro la Licenciatura: "
     	});
 
  	</script>

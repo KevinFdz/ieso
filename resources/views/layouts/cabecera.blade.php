@@ -69,7 +69,7 @@
 	</body>
 	<script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}"></script>
 	<script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-	<script src="{{ asset('bower_components/DataTables/media/js/jquery.dataTables.min.js') }}"></script>
+	<script src="{{ asset('bower_components/DataTables/media/js/jquery.dataTables.js') }}"></script>
 		<script>
 		  $(document).ready(function(){
 		      $('#mi_tabla').DataTable();
@@ -77,5 +77,6 @@
 		</script>
 	<script src="{{ asset('chosen/chosen.jquery.js') }}"></script>
 	@yield('chosen')
+	@yield('jquery')
 
 </html>

@@ -15,6 +15,7 @@
           <td>Parcial 2</td>
           <td>Ordinario</td>
           <td>Promedio</td>
+          <td>Calificar</td>
         </tr>
       <thead>
       <tbody>
@@ -28,6 +29,9 @@
             <td>{{$calificacion->parcial2}}</td>
             <td>{{$calificacion->ordinario}}</td>
             <td>{{$calificacion->promedio}}</td>
+            <td>
+              <a href="{{route('calificaciones.edit',$calificacion)}}" class="btn btn-success"><span class="  glyphicon glyphicon-check"></span> </a>
+            </td>
           </tr>
           @endif
         @endforeach

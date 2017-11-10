@@ -2,6 +2,9 @@
 @section('title','Grupos')
 @section('content')
   <a href="{{route('grupos.create')}}" class="btn btn-success"><span class="glyphicon glyphicon-plus">Nuevo</span> </a>
+  <div class="row">
+    <h1> </h1>
+  </div>
   <div class="table-responsive">
     <table class="table table-bordered table-striped table-hover" id="mi_tabla">
       <thead>
@@ -10,8 +13,8 @@
           <td>Licenciatura</td>
           <td>Cuatrimestre</td>
           <td>Turno</td>
+          <td>Alumnos</td>
           <td>Editar</td>
-          <td>Ver</td>
           <td>Eliminar</td>
 
         </tr>
@@ -24,10 +27,10 @@
             <td>{{$grupo->licenciatura->nombre}}</td>
             <td>{{$grupo->cuatrimestre}}</td>
             <td>{{$grupo->turno}}</td>
+            <td><a href="{{route('grupos.show',$grupo)}}" class="btn btn-primary"><span class=" glyphicon glyphicon-eye-open"></span> </a></td>
             <td>
               <a href="{{route('grupos.edit',$grupo)}}" class="btn btn-warning"><span class="glyphicon glyphicon-wrench"></span> </a>
             </td>
-            <td><a href="{{route('grupos.show',$grupo)}}" class="btn btn-primary"><span class=" glyphicon glyphicon-eye-open"></span> </a></td>
            <td>
               @include('layouts.eliminar',['ruta'=>'/grupos/','modelo'=>$grupo])
             </td>

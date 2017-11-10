@@ -8,7 +8,7 @@
 <div class='form-group row'>
    {!!Form::label('nombre','Nombre',['class'=>'control-label col-xs-12 col-md-1'])!!}
    <div class="col-xs-12 col-md-10">
-      {!!Form::text('nombre',$profesor->nombre,['class'=>'form-control','placeholder'=>'escribe el nombre'])!!}
+      {!!Form::text('nombre',$profesor->nombre,['class'=>'form-control','placeholder'=>'Nombre del profesor'])!!}
    </div>
 </div>
 <div class='form-group row'>
@@ -49,7 +49,7 @@
    </div>
 </div>
 <div class='form-group row'>
-   {!!Form::label('telefono_c','Telefono_c',['class'=>'control-label col-xs-12 col-md-1'])!!}
+   {!!Form::label('telefono_c','Telefono casa',['class'=>'control-label col-xs-12 col-md-1'])!!}
    <div class="col-xs-12 col-md-10">
       {!!Form::text('telefono_c',$profesor->telefono_c,['class'=>'form-control','placeholder'=>'Telefono de casa'])!!}
    </div>
@@ -64,7 +64,7 @@
 @if($profesor->id)
 @else
 <div class="form-group row {{ $errors->has('email') ? ' has-error' : '' }}">
-            <label for="email" class="col-xs-12 col-md-1">E-Mail</label>
+            <label for="email" class="control-label col-xs-12 col-md-1">E-Mail</label>
 
             <div class="col-xs-12 col-md-10">
                 <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
@@ -79,7 +79,7 @@
    
 
    <div class="form-group row{{ $errors->has('password') ? ' has-error' : '' }}">
-            <label for="contraseña" class="col-xs-12 col-md-1">Contraseña</label>
+            <label for="Contraseña" class="control-label  col-xs-12 col-md-1">Contraseña</label>
 
             <div class="col-xs-12 col-md-10">
                 <input id="password" type="password" class="form-control" name="password" required>
@@ -92,8 +92,8 @@
             </div>
    </div>
 
-   <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-      <label for="password-confirm" class="col-xs-12 col-md-1">Confirmar Contraseña</label>
+   <div class="form-group row{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
+      <label for="password-confirm" class="control-label col-xs-12 col-md-1">Confirmar Contraseña</label>
 
       <div class="col-xs-12 col-md-10">
           <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>

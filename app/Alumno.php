@@ -76,11 +76,12 @@ class Alumno extends Model
     }
 
 
-    public static function AlumnoGrupo($idl){
+    public static function AlumnoGrupo($grupo){
         $Alumnos = Alumno::leftjoin('calificaciones','calificaciones.alumno_id','=','alumnos.id')
         ->orderBy('id','ASC')
         ->whereNull('alumnos.grupo_id')
-        ->where('alumnos.licenciatura_id','=',"$idl")
+        ->where('alumnos.licenciatura_id','=',"$grupo->licenciatura_id")
+        ->where('alumnos.cuatrimestre','=',"$grupo->cuatrimestre")
         ->get([
             'alumnos.id',
             'alumnos.nombre as nombre',

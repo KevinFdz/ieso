@@ -18,14 +18,14 @@
 			  			<a href="#" class="drop-toggle" data-toggle="dropdown"><i class="fa fa-users" aria-hidden="true"></i> Recursos humanos<span class="caret"></span>	</a>
 
 				  		<ul class="dropdown-menu">
-							<li><a href="{{ url('/alumnos') }}"><i class="fa fa-graduation-cap"></i> Alumnos</a></li>
+							<li><a href="{{ url('/alumnos') }}"><i class="fa fa-users"></i> Alumnos</a></li>
 					
 			  				<li><a href="{{ url('/profesores') }}"><i class="fa fa-users" aria-hidden="true"></i> Profesores</a></li>
-			  				<li><a href="{{ url('/coordinadores') }}"><i class="fa fa-hand-paper-o" aria-hidden="true"></i>Coordinadores</a></li>
+			  				<li><a href="{{ url('/coordinadores') }}"><i class="fa fa-users" aria-hidden="true"></i>Coordinadores</a></li>
 			  			</ul>
 				  	</li>
 			  		<li class="dropdown">
-			  			<a href="#" class="drop-toggle" data-toggle="dropdown"><i class="fa fa-book" aria-hidden="true"></i>Recursos Administrativos<span class="caret"></span>	</a>
+			  			<a href="#" class="drop-toggle" data-toggle="dropdown"><i class="fa fa-folder-open" aria-hidden="true"></i> Administrativos<span class="caret"></span>	</a>
 
 				  		<ul class="dropdown-menu">
 				  			<li><a href="{{ url('/materias') }}" ><i class="fa fa-book" aria-hidden="true"></i> Materias</a></li>
@@ -34,8 +34,40 @@
 				  			<li><a href="{{ url('/grupos') }}"><i class="fa fa-book" aria-hidden="true"></i> Grupos</a></li>
 				  		</ul>
 				  	</li>
-				  	<li><a href="{{ url('/horarios') }}"><i class="fa fa-book" aria-hidden="true"></i> Horarios</a></li>
-				  	<li><a href="{{ url('/calificaciones/grupos') }}"><i class="fa fa-book" aria-hidden="true"></i> Calificaciones</a></li>
+				  	<li class="dropdown">
+			  			<a href="#" class="drop-toggle" data-toggle="dropdown"><i class="fa fa-graduation-cap" aria-hidden="true"></i>Academico<span class="caret"></span>	</a>
+						<ul class="dropdown-menu">  	
+						  	<li><a href="{{ url('/horarios') }}"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Horarios</a></li>
+						  	<li><a href="{{ url('/calificaciones/grupos') }}"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Calificaciones</a></li>
+						  	<li><a href="{{ url('/fin') }}"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Fin Cuatrimestre</a></li>
+				  		</ul>
+				  	</li>
+				  	<form class="navbar-form navbar-left" action="{{url('alumno/buscar')}}" method="POST">
+ 					<div class="form-group">{{ csrf_field() }}
+  					<input type="text" class="form-control" name='matricula' placeholder="Matricula del alumno" />
+					 </div>
+					 <button type="submit" class="btn btn-default">Buscar</button>
+					</form>
+				@elseif (Auth::user()->type =='Administrativo')
+					<li class="dropdown">
+			  			<a href="#" class="drop-toggle" data-toggle="dropdown"><i class="fa fa-users" aria-hidden="true"></i> Recursos humanos<span class="caret"></span>	</a>
+
+				  		<ul class="dropdown-menu">
+							<li><a href="{{ url('/alumnos') }}"><i class="fa fa-users"></i> Alumnos</a></li>
+					
+			  				<li><a href="{{ url('/profesores') }}"><i class="fa fa-users" aria-hidden="true"></i> Profesores</a></li>
+			  				<li><a href="{{ url('/coordinadores') }}"><i class="fa fa-users" aria-hidden="true"></i>Coordinadores</a></li>
+			  			</ul>
+				  	</li>
+				  	<li class="dropdown">
+			  			<a href="#" class="drop-toggle" data-toggle="dropdown"><i class="fa fa-folder-open" aria-hidden="true"></i> Academico<span class="caret"></span>	</a>
+
+				  		<ul class="dropdown-menu">
+				  			<li><a href="{{ url('/horarios') }}"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Horarios</a></li>
+						  	<li><a href="{{ url('/calificaciones/grupos') }}"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Calificaciones</a></li>
+				  			<li><a href="{{ url('/grupos') }}"><i class="fa fa-book" aria-hidden="true"></i> Grupos</a></li>
+				  		</ul>
+				  	</li>
 				  	<form class="navbar-form navbar-left" action="{{url('alumno/buscar')}}" method="POST">
  					<div class="form-group">{{ csrf_field() }}
   					<input type="text" class="form-control" name='matricula' placeholder="Matricula del alumno" />
@@ -44,8 +76,12 @@
 					</form>
 				@elseif (Auth::user()->type =='Coordinador')
 					<li><a href="{{ url('/grupo/coordinador') }}"><i class="fa fa-users" aria-hidden="true"></i> Grupos</a></li>
-					<li><a href="{{ url('/calificacion/buscar') }}"><i class="fa fa-users" aria-hidden="true"></i> Calificaciones</a></li>
-					<li><a href="{{ url('/kardex/buscar') }}"><i class="fa fa-users" aria-hidden="true"></i> Kardex</a></li>
+					<form class="navbar-form navbar-left" action="{{url('alumno/buscar')}}" method="POST">
+ 					<div class="form-group">{{ csrf_field() }}
+  					<input type="text" class="form-control" name='matricula' placeholder="Matricula del alumno" />
+					 </div>
+					 <button type="submit" class="btn btn-default">Buscar</button>
+					</form>
 				@elseif (Auth::user()->type =='Profesor')
 					<li><a href="{{ url('/horario/profesor') }}"><i class="fa fa-users" aria-hidden="true"></i> Horario</a></li>
 				@elseif (Auth::user()->type =='Alumno')
@@ -55,13 +91,14 @@
 				@else
 				@endif
 				</ul>
-				<ul class="nav navbar-nav navbar-right">
-                    <li><a href="{{ url('/usuarios') }}">Usuarios</a></li>
-                   
+				<ul class="nav navbar-nav navbar-right"> 
                     <!-- Authentication Links -->
                     @if (Auth::guest())
                         <li><a href="{{ url('/login') }}">Login</a></li>
                     @else
+                    @if(Auth::user()->type =='Admin')
+                    <li><a href="{{ url('/usuarios') }}"><i class="fa fa-id-card" aria-hidden="true"></i> Usuarios</a></li>
+                    @endif
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 <i class="fa fa-user" aria-hidden="true"></i> {{ Auth::user()->nombre }} <span class="caret"></span>

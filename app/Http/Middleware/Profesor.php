@@ -27,6 +27,9 @@ class Profesor
         elseif(Auth::guard()->user()->tipo() == 'Admin'){
             return $next($request);
         }
+        elseif(Auth::guard()->user()->tipo() == 'Administrativo'){
+            return $next($request);
+        }
         else{
             abort(401);
         }

@@ -33,5 +33,34 @@ class Calificacion extends Model
 		return $this->belongsTo('App\Horario');
 	}
 
-	
+	public function CalificacionesActuales($alumno){
+	        $calificaciones = Calificacion::join('horarios','horarios.id','=','califiaciones.horario_id')
+	        ->join('grupos','grupos.id','=','horarios.grupo_id')
+	        ->join('materias','materias.id','=','horarios.materia_id')
+	        ->join('profesores','profesores.id','=','horarios.profesor_id')
+	        ->orderBy('id','ASC')
+	        ->where('horarios.grupo_id','=',"$grupo->id")
+	        ->where('materias.cuatrimestre','=',"$grupo->cuatrimestre")
+	        ->get([
+	            'horarios.id',
+	            'aulas.nombre as aula',
+	            'grupos.cuatrimestre as cuatrimestre_g',
+	            'grupos.nombre as grupo',
+	            'materias.nombre as materia',
+	            'materias.cuatrimestre as cuatrimestre',
+	            'profesores.nombre as profesor',
+	            'horarios.lunes_i',
+	            'horarios.lunes_f',
+	            'horarios.martes_i',
+	            'horarios.martes_f',
+	            'horarios.miercoles_i',
+	            'horarios.miercoles_f',
+	            'horarios.jueves_i',
+	            'horarios.jueves_f',
+	            'horarios.viernes_i',
+	            'horarios.viernes_f',
+	            ]);
+	        return $horarios;
+
+	}
  }

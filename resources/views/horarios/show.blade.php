@@ -1,9 +1,12 @@
 @extends('layouts.cabecera')
-@section('title','Horario')
+@section('title','Horario del Grupo: '.$grupo->nombre)
 @section('content')
   <a href="{{route('horarios.asignar',$grupo)}}" class="btn btn-primary"><span class="glyphicon glyphicon-plus">Materia</span> </a>
+  <div class="row">
+    <h1> </h1>
+  </div>
   <div class="table-responsive">
-    <table  class="table table-bordered table-striped table-hover" id="mi_tabla">
+    <table  class="table table-bordered table-striped table-hover">
       <thead>
         <tr>
           <td>Aula</td>
@@ -22,7 +25,6 @@
       <tbody>
 
         @foreach($horarios as $horario)
-          @if($horario->cuatrimestre == $grupo->cuatrimestre)
           <tr>
             <td>{{$horario->aula}}</td>
             <td>{{$horario->grupo}}</td>
@@ -44,7 +46,6 @@
             </td>
 
           </tr>
-          @endif
         @endforeach
       </tbody>
     </table>

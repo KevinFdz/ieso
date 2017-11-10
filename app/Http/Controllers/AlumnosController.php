@@ -94,7 +94,7 @@ class AlumnosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(AlumnoRequest $request, $id)
+    public function update(Request $request, $id)
     {
         //Buscamos la alumno que vamos a asignar los nuevos valores con el modelo alumno y find
         $alumno= Alumno::find($id);

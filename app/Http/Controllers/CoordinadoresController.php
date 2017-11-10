@@ -3,6 +3,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Coordinador;
+use App\Grupo;
+use App\Calificacion;
+use App\Alumno;
 use App\User;
 use App\Licenciatura;
 use App\Http\Requests\CoordinadorRequest;
@@ -64,6 +67,8 @@ class CoordinadoresController extends Controller
   public function show($id)
   {
       //
+        $coordinador = Coordinador::find($id);
+        return view('coordinadores.show')->with('coordinador',$coordinador);
   }
 
   /**
@@ -77,8 +82,9 @@ class CoordinadoresController extends Controller
 
       //Buscamos la coordinador que queremos modificar con el modelo coordinador y con el parametro ID que rescibimos
       $coordinador = Coordinador::find($id);
+      $licenciaturas = Licenciatura::orderBy('nombre','ASC')->pluck('nombre','id');
       //Mandamos a llamar la vista edit y le mandamos la coordinador que extragimos de la base mediante el model coordinador
-      return view('coordinadores.edit')->with('coordinador',$coordinador);
+      return view('coordinadores.edit')->with('coordinador',$coordinador)->with('licenciaturas',$licenciaturas);
   }
 
   /**
@@ -115,4 +121,10 @@ class CoordinadoresController extends Controller
       flash('Se ha eliminado el Coordinador con exito!!','danger');
       return redirect()->route('coordinadores.index');
   }
+
+
+  //funciones 
+
+  
+
 }
