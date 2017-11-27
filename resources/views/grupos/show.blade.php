@@ -1,10 +1,12 @@
 @extends('layouts.cabecera')
 @section('title',"Grupo ".$grupo->nombre)
 @section('content')
-<div class="row"><a href="{{route('grupos.alumnos',$grupo->id)}}" class="btn btn-primary col-sm-pull-1 col-sm-1 col-sm-push-10"><span class=" glyphicon glyphicon-cloud-download">Alumno</span> </a></div>
+@if($grupo->status == "Activo")
+<div class="row"><a href="{{route('grupos.alumnos',$grupo->id)}}" class="btn btn-primary col-sm-pull-1 col-sm-1 col-sm-push-10"><span class=" glyphicon glyphicon-plus">Alumno</span> </a></div>
 <div class="row">
    <h1> </h1>
 </div>
+@endif
   <div class="table-responsive">
     <table class="table table-bordered table-striped table-hover">
       <thead>

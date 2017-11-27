@@ -28,7 +28,8 @@ class CreateUsersTable extends Migration
             ['nombre' => 'Admin','email'=>'admin@admin.com','password'=>bcrypt(1234),'type'=>'Admin'],
             ['nombre' => 'Coordinador','email'=>'Coordinador@cordinador.com','password'=>bcrypt(1234),'type'=>'Coordinador'],
             ['nombre' => 'Profesor','email'=>'profesor@profesor.com','password'=>bcrypt(1234),'type'=>'Profesor'],
-            ['nombre' => 'Alumno','email'=>'alumno@alumno.com','password'=>bcrypt(1234),'type'=>'Alumno']
+            ['nombre' => 'Alumno','email'=>'alumno@alumno.com','password'=>bcrypt(1234),'type'=>'Alumno'],
+            ['nombre' => 'Administrativo','email'=>'administrativo@administrativo.com','password'=>bcrypt(1234),'type'=>'Administrativo']
         ]);
     }
 

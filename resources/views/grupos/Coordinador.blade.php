@@ -29,7 +29,7 @@
                                   <tbody>
 
                                     @foreach ($grupos as $grupo)
-                                      @if($grupo->cuatrimestre == $i)
+                                      @if($grupo->cuatrimestre == $i and $grupo->status == "Activo")
                                       <tr>
                                         <td>{{$grupo->nombre}}</td>
                                         <td>{{$grupo->licenciatura}}</td>

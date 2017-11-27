@@ -2,7 +2,7 @@
 @section('title','Horario')
 @section('content')
  <div class="table-responsive">
-                            <table  class="table table-bordered table-striped table-hover" id="mi_tabla">
+                            <table  class="table table-bordered table-striped table-hover">
                               <thead>
                                 <tr>
                                   <td>Aula</td>
@@ -21,7 +21,7 @@
                                 @foreach($horarios as $horario)
                                 @if($horario->materia->cuatrimestre == $alumno->cuatrimestre)
                                   <tr>
-                                    <td>{{$horario->aula}}</td>
+                                    <td>{{$horario->aula->nombre}}</td>
                                     <td>{{$horario->grupo->nombre}}</td>
                                     <td>{{$horario->materia->nombre}}</td>
                                     <td>{{$horario->profesor->nombre}}</td>

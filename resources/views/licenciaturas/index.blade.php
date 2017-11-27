@@ -1,7 +1,7 @@
 @extends('layouts.cabecera')
-@section('title','Licenciatura')
+@section('title','Licenciaturas')
 @section('content')
-  <a href="{{route('licenciaturas.create')}}" class="btn btn-success"><span class="glyphicon glyphicon-plus">Nuevo</span> </a>
+  <a href="{{route('licenciaturas.create')}}" class="btn btn-success">Añadir Licenciatura </a>
   <div class="row">
     <h1> </h1>
   </div>
@@ -11,6 +11,7 @@
         <tr>
           <td>Nombre</td>
           <td>Coordinador</td>
+          <td>Materias</td>
           <td>Editar</td>
           <td>Eliminar</td>
         </tr>
@@ -27,6 +28,9 @@
             <td></td>
 
         @endif
+            <td>
+              <a href="{{route('licenciaturas.show',$licenciatura)}}" class="btn btn-primary"><span class="glyphicon glyphicon-book"></span> </a>
+            </td>
             <td>
               <a href="{{route('licenciaturas.edit',$licenciatura)}}" class="btn btn-warning"><span class="glyphicon glyphicon-wrench"></span> </a>
             </td>

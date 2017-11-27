@@ -31,7 +31,7 @@ class CreateProfesoresTable extends Migration
         });
 
          DB::table('profesores')->insert([
-            ['matricula' => '1234','nombre'=>'ludwing','fecha_n'=>'1997-10-01','curp'=>'123456789987456321','estado_c'=>'soltero','colonia'=>'centro','calle'=>'abasolo','cp'=>'68000','telefono_c'=>'5112345','celular'=>'9511234556','user_id'=>'3']
+            ['matricula' => '1234','nombre'=>'Profesor','fecha_n'=>'1997-10-01','curp'=>'123456789987456321','estado_c'=>'soltero','colonia'=>'centro','calle'=>'abasolo','cp'=>'68000','telefono_c'=>'5112345','celular'=>'9511234556','user_id'=>'3']
         ]);
 
     }

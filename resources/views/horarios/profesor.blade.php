@@ -2,7 +2,7 @@
 @section('title','Horarios')
 @section('content')
  <div class="table-responsive">
-        <table  class="table table-bordered table-striped table-hover" id="mi_tabla">
+        <table  class="table table-bordered table-striped table-hover">
           <thead>
             <tr>
               <td>Aula</td>

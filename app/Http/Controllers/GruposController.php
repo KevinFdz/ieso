@@ -50,9 +50,9 @@ class GruposController extends Controller
         //Mandamos a guaradar la nueva grupo creada
         $grupo->save();
         //mandamos un mensaje de registro exitoso
-        flash('Se ha registrado el grupo '.$grupo->nombre.' con exito!!','success');
+        flash('Se ha registrado el grupo '.$grupo->nombre.' con exito, ahora puedes asignar materias','success');
         //Redireccionamos al index
-        return redirect()->route('grupos.index');
+        return redirect()->route('horarios.show',$grupo);
     }
 
     /**

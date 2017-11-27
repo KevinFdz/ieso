@@ -9,7 +9,7 @@ class Grupo extends Model
     //Se delcara la tabla de la base de datos en la que se va a trabajar
     protected $table='grupos';
     //Se definen los campos con los que se van a trabajar(Agregar,Editar,Eliminar,ostrar)
-    protected $fillable=['nombre','licenciatura_id','profesor_id','cuatrimestre','turno','user_id'];
+    protected $fillable=['nombre','licenciatura_id','profesor_id','cuatrimestre','turno','status','user_id'];
 
     /*
       Se declara las relaciones que tiene con otras tablas
@@ -70,6 +70,7 @@ class Grupo extends Model
             'licenciaturas.nombre as licenciatura',
             'grupos.nombre as nombre',
             'grupos.cuatrimestre as cuatrimestre',
+            'grupos.status as status',
             'grupos.turno as turno',
             ]);
         return $grupos;

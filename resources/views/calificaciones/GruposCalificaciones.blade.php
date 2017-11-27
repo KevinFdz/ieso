@@ -1,5 +1,5 @@
 @extends('layouts.cabecera')
-@section('title','Calificaiones')
+@section('title','Calificaciones')
 @section('content')
   @for ($i = 1; $i <= 10; $i++)
                           <div class="panel panel-primary">

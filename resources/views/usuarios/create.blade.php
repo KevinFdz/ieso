@@ -1,5 +1,5 @@
 @extends('layouts.cabecera')
-@section('title','Crear Usuario')
+@section('title','Nuevo Usuario')
 @section('content')
   <div class='container'>
     @include('usuarios.global',['ruta'=>'usuarios.store','accion'=>'POST','usuario'=>$usuario])

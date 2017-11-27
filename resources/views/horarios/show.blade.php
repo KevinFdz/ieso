@@ -1,7 +1,7 @@
 @extends('layouts.cabecera')
 @section('title','Horario del Grupo: '.$grupo->nombre)
 @section('content')
-  <a href="{{route('horarios.asignar',$grupo)}}" class="btn btn-primary"><span class="glyphicon glyphicon-plus">Materia</span> </a>
+  <a href="{{route('horarios.asignar',$grupo)}}" class="btn btn-primary">Asignar Clase</span> </a>
   <div class="row">
     <h1> </h1>
   </div>

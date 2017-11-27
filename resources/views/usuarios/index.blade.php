@@ -1,7 +1,10 @@
 @extends('layouts.cabecera')
 @section('title','Usuarios')
 @section('content')
-  <a href="{{route('usuarios.create')}}" class="btn btn-success"><span class="glyphicon glyphicon-plus">Nuevo</span> </a>
+  <a href="{{route('usuarios.create')}}" class="btn btn-success">Añadir Usuario</a>
+  <div class="row">
+    <h1> </h1>
+  </div>
   <div class="table-responsive">
     <table class="table table-bordered table-hover" id="mi_tabla">
       <thead>

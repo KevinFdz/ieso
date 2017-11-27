@@ -2,7 +2,7 @@
   <div class='form-group row'>
     {!!Form::label('nombre','Nombre',['class'=>'control-label col-xs-12 col-md-1'])!!}
     <div class="col-xs-12 col-md-10">
-      {!!Form::text('nombre',$grupo->nombre,['class'=>'form-control','placeholder'=>'nombre'])!!}
+      {!!Form::text('nombre',$grupo->nombre,['class'=>'form-control','placeholder'=>'Nombre del grupo'])!!}
     </div>
   </div>
 

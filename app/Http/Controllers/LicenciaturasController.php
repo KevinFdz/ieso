@@ -67,6 +67,11 @@ class LicenciaturasController extends Controller
     public function show($id)
     {
         //
+        $licenciatura = Licenciatura::find($id);
+        $materias= $licenciatura->materias;
+        return view('licenciaturas.show')->with('licenciatura',$licenciatura)->with('materias',$materias);
+
+
     }
 
     /**

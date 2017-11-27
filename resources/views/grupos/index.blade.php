@@ -1,7 +1,7 @@
 @extends('layouts.cabecera')
 @section('title','Grupos')
 @section('content')
-  <a href="{{route('grupos.create')}}" class="btn btn-success"><span class="glyphicon glyphicon-plus">Nuevo</span> </a>
+  <a href="{{route('grupos.create')}}" class="btn btn-success">Añadir Grupo</a>
   <div class="row">
     <h1> </h1>
   </div>
@@ -13,6 +13,7 @@
           <td>Licenciatura</td>
           <td>Cuatrimestre</td>
           <td>Turno</td>
+          <td>Status</td>
           <td>Alumnos</td>
           <td>Editar</td>
           <td>Eliminar</td>
@@ -27,6 +28,7 @@
             <td>{{$grupo->licenciatura->nombre}}</td>
             <td>{{$grupo->cuatrimestre}}</td>
             <td>{{$grupo->turno}}</td>
+            <td>{{$grupo->status}}</td>
             <td><a href="{{route('grupos.show',$grupo)}}" class="btn btn-primary"><span class=" glyphicon glyphicon-eye-open"></span> </a></td>
             <td>
               <a href="{{route('grupos.edit',$grupo)}}" class="btn btn-warning"><span class="glyphicon glyphicon-wrench"></span> </a>

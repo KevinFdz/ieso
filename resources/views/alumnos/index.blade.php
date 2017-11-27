@@ -1,7 +1,7 @@
 @extends('layouts.cabecera')
 @section('title','Alumnos')
 @section('content')
-  <a href="{{route('alumnos.create')}}" class="btn btn-success"><span class="glyphicon glyphicon-plus">Nuevo</span> </a>
+  <a href="{{route('alumnos.create')}}" class="btn btn-success">Añadir Alumno </a>
   <div class="row">
     <h1> </h1>
   </div>

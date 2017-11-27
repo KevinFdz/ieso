@@ -68,6 +68,12 @@
    </div>
 </div>
 
+<div class='form-group row'>
+   {!!Form::label('Status','Status',['class'=>'control-label col-xs-12 col-md-1'])!!}
+   <div class="col-xs-12 col-md-10">
+      {!!Form::select('status',array('Regular' => 'Regular','Baja Temporal' => 'Baja Temporal','Baja Definitiva' => 'Baja Definitiva'),$alumno->status,['class'=>'form-control select-category','placeholder'=>'Status..'])!!}
+   </div>
+</div>
 <!--                       Licenciatura                                 -->
 @if($alumno->licenciatura)<!--  Evaluamos si alumno contiene datos, como contiene datos se manda la etiqueta de editar        -->
    <div class='form-group row'>

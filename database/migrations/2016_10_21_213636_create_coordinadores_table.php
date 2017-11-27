@@ -34,7 +34,7 @@ class CreateCoordinadoresTable extends Migration
         });
 
         DB::table('coordinadores')->insert([
-            ['matricula' => '123','nombre'=>'juan','fecha_n'=>'1987-11-01','curp'=>'321654987987456321','estado_c'=>'soltero','colonia'=>'reforma','calle'=>'rosas','cp'=>'68100','telefono_c'=>'5165432','celular'=>'9519876524','user_id'=>'2','licenciatura_id'=>'1']
+            ['matricula' => '123','nombre'=>'Coordinador','fecha_n'=>'1987-11-01','curp'=>'321654987987456321','estado_c'=>'soltero','colonia'=>'reforma','calle'=>'rosas','cp'=>'68100','telefono_c'=>'5165432','celular'=>'9519876524','user_id'=>'2','licenciatura_id'=>'1']
         ]);
     }
 

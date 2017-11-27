@@ -63,12 +63,13 @@ class CalificacionesController extends Controller
             $promedio = 0;
             foreach($calificaciones as $calificacion){
                 if($calificacion->horario->grupo->cuatrimestre == $calificacion->horario->materia->cuatrimestre){
-                    if($calificacion->promedio){
+                    if($calificacion->promedio >=6){
                         $promedio +=  $calificacion->promedio;
                         $contador++;
                     }
                     else{
                         $contador = 0;
+                        break;
                     }
                     }
                 }
@@ -116,7 +117,7 @@ class CalificacionesController extends Controller
             $calificacion = new Calificacion;
             $calificacion->alumno_id = $ida;
             $calificacion->horario_id = $idh;
-            $calificacion->user_id = \Auth::user()->id;
+            //$calificacion->user_id = \Auth::user()->id;
             //Mandamos a guaradar la nueva calificacion creada
             $calificacion->save();    
             
@@ -168,7 +169,7 @@ class CalificacionesController extends Controller
 
         //Creamos un prodcuto nuevo con el modelo calificacion y lo rellenamos con los datos que ingresa el usuario
         $calificacion = new Calificacion($request->all());
-        $calificacion->user_id = \Auth::user()->id;
+        //$calificacion->user_id = \Auth::user()->id;
         //Mandamos a guaradar la nueva calificacion creada
         $calificacion->save();
         //Mandamos un mensaje de registro exitoso
@@ -237,7 +238,7 @@ class CalificacionesController extends Controller
         //Guardamos la calificacion con los campos ya modificados
         $calificacion->save();
         //Redireccionamos al index
-        flash('Se ha actualizado la calificación '.$calificacion->alumno_id.' con exito!!','success');
+        flash('Se ha actualizado la calificación de '.$calificacion->alumno->nombre.' con exito!!','success');
         return redirect()->route('calificaciones.asignar',$calificacion->horario_id);
     }
 
@@ -302,7 +303,7 @@ class CalificacionesController extends Controller
             $calificacion = new Calificacion;
             $calificacion->horario_id = $idh;
             $calificacion->alumno_id = $alumno->id;
-            $calificacion->user_id = \Auth::user()->id;
+            //$calificacion->user_id = \Auth::user()->id;
             $calificacion->save();
         
 

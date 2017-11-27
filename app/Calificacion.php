@@ -11,7 +11,7 @@ class Calificacion extends Model
     /*Declarocion de los datos que se pueden editar
     Nombre
     */
-    protected $fillable=['alumno_id','horario_id','parcial1','parcial2','ordinario','promedio'];
+    protected $fillable=['alumno_id','horario_id','parcial1','parcial2','ordinario','promedio','nota'];
 
 
     public function user(){

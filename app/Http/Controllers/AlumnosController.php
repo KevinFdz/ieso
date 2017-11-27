@@ -129,7 +129,7 @@ class AlumnosController extends Controller
             return redirect()->route('alumnos.show',$alumno->id);    
         }
         else{
-            flash('Nno se encontro al Alumno con Matricula: '.$m);
+            flash('No se encontro al Alumno con Matricula: '.$m,'danger');
         return redirect()->back();   
         }
         

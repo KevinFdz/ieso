@@ -28,10 +28,10 @@ class CreateAlumnosTable extends Migration
             $table->integer('licenciatura_id')->unsigned()->nullable();
             $table->enum('cuatrimestre',['1','2','3','4','5','6','7','8','9','10']);
             $table->integer('grupo_id')->unsigned()->nullable();
-            $table->enum('status',['Regular','Resagado'])->default('regular');
+            $table->enum('status',['Regular','Baja Temporal','Baja Definitiva'])->default('regular');
             $table->integer('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('licenciatura_id')->references('id')->on('licenciaturas');
+            $table->foreign('licenciatura_id')->references('id')->on('licenciaturas')->onDelete('cascade');
             $table->foreign('grupo_id')->references('id')->on('grupos');
             $table->timestamps();
 
@@ -40,7 +40,7 @@ class CreateAlumnosTable extends Migration
         DB::table('alumnos')->insert([
             [
             'matricula' => '123',
-            'nombre'=>'juan',
+            'nombre'=>'Alumno',
             'fecha_n' => '1987-11-01' ,
             'curp'=>'321654987987456321',
             'estado_c'=>'Soltero',

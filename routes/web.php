@@ -20,7 +20,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['middleware' => 'admin'], function () {
     	Route::resource('aulas','AulasController');
 		Route::resource('licenciaturas','LicenciaturasController');
-		Route::resource('coordinadores','CoordinadoresController');
 		Route::resource('materias','MateriasController');
 		Route::get('fin',[
 			'uses' => 'KardexController@Fin',
@@ -35,6 +34,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 ///////////////////////Administrativo/////////////////////
     Route::group(['middleware' => 'administrativo'], function () {
+    	Route::resource('coordinadores','CoordinadoresController');
     	Route::resource('tutores','TutoresController');
 		Route::resource('alumnos','AlumnosController');
 		Route::get('calificaciones/grupos',[

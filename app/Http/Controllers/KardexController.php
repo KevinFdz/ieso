@@ -211,13 +211,37 @@ class KardexController extends Controller
     $grupos = Grupo::all();
     foreach($grupos as $grupo){
       $this->AlumnosFinCuatrimestre($grupo->id);
-      $cuatrimestre = $grupo->cuatrimestre + 1;
-      $grupo->cuatrimestre = $cuatrimestre;
+      $status=$this->StatusGrupo($grupo);
+      if($status == "Egresado"){
+        $grupo->status = $status;
+        $grupo->cuatrimestre = null;
+      }
+      else{
+        $cuatrimestre = $grupo->cuatrimestre + 1;
+        $grupo->cuatrimestre = $cuatrimestre;
+      }
       $grupo->save();
     }
+    $grupo = Grupo::all();
+    $this->borrarCalificacionesReprobatorias();
     return redirect('home');
   }
 
+
+  //Status del grupo
+  public function StatusGrupo($grupo){
+      $status = "Activo";
+      foreach ($grupo->licenciatura->materias as $materia) {
+        if($materia->cuatrimestre == ($grupo->cuatrimestre + 1)){
+          $status = "Activo";
+          break;
+        }
+        else{
+          $status="Egresado";
+        }
+      }
+      return $status;
+  }
 
   //Se cambia de cuatrimestre a los alumnos que no adeudan ni una materia y se lo pone el status de irregular a los que adeudan materias
 
@@ -235,7 +259,6 @@ class KardexController extends Controller
           $alumno->save();
         }
     }
-    $this->borrarCalificacionesReprobatorias();
   }
 
   //Se evalua si el alumno es regular o irregular, obteinendo sus calificaciones del cuatrimestre
@@ -247,7 +270,7 @@ class KardexController extends Controller
        foreach($calificaciones as $calificacion){
           if($calificacion->horario->materia->cuatrimestre == $alumno->cuatrimestre){
             if($calificacion->promedio == null or $calificacion->promedio<= 6){
-                $status = "Resagado";
+                $status = "Baja Temporal";
                 break;
             }
           }

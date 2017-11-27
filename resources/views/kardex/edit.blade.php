@@ -5,8 +5,10 @@
 		{!!Form::open(['route'=>['reticula.update',$kardex],'method'=>'PUT','kardex'=>$kardex]) !!}
 
 		<div class='group row'>
-		   {!!Form::label('Calificacion','Calficacion')!!}
+		   {!!Form::label('Calificacion','Calficacion',['class'=>'control-label col-xs-12 col-md-1'])!!}
+		   <div class="col-xs-12 col-md-10">
 		   {!!Form::text('calificacion',$kardex->calificacion,['class'=>'form-control','placeholder'=>'Calificacion'])!!}
+			</div>
 		</div>
 		
 		<div class='group row'>
